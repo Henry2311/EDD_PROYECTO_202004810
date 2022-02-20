@@ -32,21 +32,5 @@ public class ventanilla {
         }
     }
     
-    public void show(){
-        if(first == null){
-            System.err.print("No hay datos en la lista");
-        }
-        else{
-            Nodo aux = first;
-            int i = 1;
-            while(aux != null){
-                System.out.println("Pila No. "+i);
-                aux.pila.peek();
-                aux = aux.next;
-                i++;
-            }
-        }
-    }
-    
     
 }
