@@ -1,6 +1,9 @@
 
 package edd.proyecto1_fase2;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 
 public class Arbol_AVL {
     
@@ -11,30 +14,32 @@ public class Arbol_AVL {
 	Nodo left;
 	Nodo right;
         int alt;
-	
-	Nodo(int value){
+	imagen img;
+        
+	Nodo(int value, imagen img){
             this.value = value;
             left = null;
             right = null;
             alt = 0;
+            this.img = img;
 	}
     }
 	
-    void add(int value) {
-	root = add(value, root);
+    void add(int value, imagen img) {
+	root = add(value, root,img);
     }
 	
-    Nodo add(int value, Nodo tmp) {
-        if (tmp == null) tmp = new Nodo(value);
+    Nodo add(int value, Nodo tmp, imagen img) {
+        if (tmp == null) tmp = new Nodo(value,img);
             else if (value < tmp.value) {
-            tmp.left = add(value, tmp.left);
+            tmp.left = add(value, tmp.left, img);
             if ((altura(tmp.left)-altura(tmp.right))==2) {
                 if (value<tmp.left.value) tmp = srl(tmp);
                 else tmp = drl(tmp);
             }            
 		}
 		else {
-            tmp.right = add(value, tmp.right);
+            tmp.right = add(value, tmp.right, img);
             if ((altura(tmp.right)-altura(tmp.left))==2) {
                 if (value>tmp.right.value) tmp = srr(tmp);
                 else tmp = drr(tmp);
@@ -88,6 +93,60 @@ public class Arbol_AVL {
         return srr(tmp);
     }
 	
+    public void Graficar(String nombre) {
+        String contenido="";
+        contenido+=nodos(contenido,this.root);
+        contenido+=enlaces(contenido,this.root);
+        FileWriter reporte1 = null;
+        PrintWriter pw;
+        try{
+            reporte1 = new FileWriter(nombre+"AVL.dot");
+            pw = new PrintWriter(reporte1);
+            pw.println("digraph G {");
+            pw.println("node[shape=\"circle\" style =filled]");
+            pw.println(contenido);
+            pw.println("}");
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{       
+                if(null != reporte1){
+                    reporte1.close();
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o",nombre+"AVL.png",nombre+"AVL.dot");
+                    buil.redirectErrorStream(true);
+                    buil.start();           
+                }
+        }catch(Exception e2){
+        e2.printStackTrace();
+        }
+        }
+    }
+    
+    public String enlaces(String contenido,Nodo raiz) {
+        String con="";
+        if (raiz.left!= null) {
+            contenido += raiz.value + " -> " + raiz.left.value + "\n";
+            contenido += enlaces(con,raiz.left);
+        }
+        con="";
+        if (raiz.right != null) {
+            contenido += raiz.value + " -> " + raiz.right.value + "\n";
+            contenido += enlaces(con, raiz.right);
+        }
+        return contenido;
+    }
+    
+    public String nodos(String contenido,Nodo raiz) {
+        String con="";
+        if (raiz != null) {
+            contenido+=raiz.value+"[label=\"Imagen "+raiz.value+"\"]\n";
+            contenido+=nodos(con,raiz.left);
+            con="";
+            contenido+=nodos(con,raiz.right);
+        }
+        return contenido;
+    }
+    
     void preorder(Nodo tmp) {
         if (tmp != null) {
             System.out.print(tmp.value+" ");
@@ -111,5 +170,19 @@ public class Arbol_AVL {
             System.out.print(tmp.value+" ");			
 	}
     }
+
+    public Nodo search(int id){
+    
+        Nodo aux = this.root;
         
+        while(aux.value != id){
+            if(id<aux.value){
+                aux = aux.left;
+            }else{
+                aux = aux.right;
+            }
+            if(aux == null){return null;}
+        }
+        return aux;
+    }
 }

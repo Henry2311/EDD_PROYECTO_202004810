@@ -6,27 +6,28 @@ import java.io.PrintWriter;
 
 
 public class Arbol_ABB {
-    
     Nodo root;
+    
     public class Nodo{
-    int id, valor;
-    Nodo izq, der;
-        public Nodo(int valor, int id){
-            this.id = id;
-            this.valor=valor;
-            this.izq = this.der = null;
-        }
+        int valor;
+        capa id;
+        Nodo izq, der;
+            public Nodo(int valor, capa id){
+                this.id = id;
+                this.valor=valor;
+                this.izq = this.der = null;
+            }
     }
     
     public Arbol_ABB() {
         this.root = null;
     }
 
-    public void agregar(int valor,int id) {
+    public void agregar(int valor,capa id) {
         this.root = agregar_recursive(valor, this.root , id) ;
     }
 
-    public Nodo agregar_recursive(int Valor, Nodo raiz ,int id) {
+    public Nodo agregar_recursive(int Valor, Nodo raiz ,capa id) {
         if (raiz == null) {
             return new Nodo(Valor , id);
         } else {
@@ -40,19 +41,17 @@ public class Arbol_ABB {
         }
     }
 
-    public void Graficar() {
+    public void Graficar(String nombre) {
         String contenido="";
         contenido+=nodos(contenido,this.root);
         contenido+=enlaces(contenido,this.root);
         FileWriter reporte1 = null;
         PrintWriter pw;
         try{
-            reporte1 = new FileWriter("arbol.dot");
+            reporte1 = new FileWriter(nombre+"ABB.dot");
             pw = new PrintWriter(reporte1);
             pw.println("digraph G {");
-            pw.println("bgcolor = \"#9DDEFC\"");
-            pw.println("node[shape=\"circle\" fillcolor=\"#E6D4BE\" style =filled]");
-            pw.println("label=\"Carnet: 202004810\"");
+            pw.println("node[shape=\"circle\" style =filled]");
             pw.println(contenido);
             pw.println("}");
         }catch(Exception e){
@@ -61,7 +60,7 @@ public class Arbol_ABB {
             try{       
                 if(null != reporte1){
                     reporte1.close();
-                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","arbol.png","arbol.dot");
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o",nombre+"ABB.png",nombre+"ABB.dot");
                     buil.redirectErrorStream(true);
                     buil.start();           
                 }
@@ -74,12 +73,12 @@ public class Arbol_ABB {
     public String enlaces(String contenido,Nodo raiz) {
         String con="";
         if (raiz.izq != null) {
-            contenido += raiz.id + " -> " + raiz.izq.id + "\n";
+            contenido += raiz.valor + " -> " + raiz.izq.valor + "\n";
             contenido += enlaces(con,raiz.izq);
         }
         con="";
         if (raiz.der != null) {
-            contenido += raiz.id + " -> " + raiz.der.id + "\n";
+            contenido += raiz.valor + " -> " + raiz.der.valor + "\n";
             contenido += enlaces(con, raiz.der);
         }
         return contenido;
@@ -88,7 +87,7 @@ public class Arbol_ABB {
     public String nodos(String contenido,Nodo raiz) {
         String con="";
         if (raiz != null) {
-            contenido+=raiz.id+"[label=\""+raiz.valor+"\"]\n";
+            contenido+=raiz.valor+"[label=\"Capa "+raiz.valor+"\"]\n";
             contenido+=nodos(con,raiz.izq);
             con="";
             contenido+=nodos(con,raiz.der);
@@ -119,6 +118,22 @@ public class Arbol_ABB {
             System.out.println("Hoja: " + raiz.valor);
         }
     }
+    
+    public Nodo search(int id){
+    
+        Nodo aux = this.root;
+        
+        while(aux.valor != id){
+            if(id<aux.valor){
+                aux = aux.izq;
+            }else{
+                aux = aux.der;
+            }
+            if(aux == null){return null;}
+        }
+        return aux;
+    }
+    
 }
 
 
