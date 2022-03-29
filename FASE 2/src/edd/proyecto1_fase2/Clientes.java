@@ -12,6 +12,7 @@ public class Clientes {
     Arbol_B arbB;
     Arbol_ABB abb = new Arbol_ABB();
     Lista album = new Lista();
+    Lista top = new Lista();
     public Clientes(Long dpi, String name, String password) {
         this.dpi = dpi;
         this.name = name;
@@ -152,6 +153,211 @@ public class Clientes {
         }
     }
     
+    public void Top5(){
+        System.out.println(top.size());
+        Lista.Nodo aux = top.first; 
+        if(aux!=null){
+            Lista.Nodo actual = aux;
+            boolean sw;
+            Object temp;
+            do{
+                actual = top.first;
+                Lista.Nodo siguiente = actual.next;
+                sw=false;
+                while(actual.next!=null){
+                    top_img x = (top_img) actual.data;
+                    top_img y = (top_img) siguiente.data;
+                    if (x.getCantidad()<y.getCantidad()) {
+                        sw=true;
+                        temp= actual.data;
+                        actual.data = siguiente.data;
+                        siguiente.data = temp;
+                        actual = actual.next;
+                        siguiente = siguiente.next;
+                    }else{
+                        actual = actual.next;
+                        siguiente = siguiente.next;
+                    }
+                }
+            }while(sw);
+        }
+        
+        FileWriter reporte1 = null;
+        PrintWriter pw = null;
+        try{
+            reporte1 = new FileWriter("Top"+this.name+".dot");
+            pw = new PrintWriter(reporte1);
+
+            pw.println("digraph G {");
+            pw.println("node[shape=\"box\"]");
+
+            Lista.Nodo aux2 = top.first;
+            int i = 0;
+            while(aux2 != null){
+                top_img a = (top_img) aux2.data;
+                pw.println("nodo"+i+"[label = \"Nombre: "+a.nombre+"\\n Cantidad de Capas: "+a.cantidad+"\"]");         
+                i++;
+                if(i==5){break;}
+                aux2 = aux2.next;
+            }
+            i=0;
+            aux2 = top.first;
+            while(aux2 != null){
+                if(aux2.next!=null){
+                    pw.println("nodo"+i+"->nodo"+(i+1));
+                    if(i==3){break;}
+                    i++;
+                }       
+                aux2 = aux2.next;
+            }
+            pw.println("label = \"Top 5 Imagenes con más capas\";");
+            pw.println("}");
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{       
+                if(null != reporte1){
+                    reporte1.close();
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Top"+this.name+".png","Top"+this.name+".dot");
+                    buil.redirectErrorStream(true);
+                    buil.start();           
+                }
+        }catch(Exception e2){
+        e2.printStackTrace();
+        }
+        }
+        
+    }
     
+    public void hojas(){
+        FileWriter reporte1 = null;
+        PrintWriter pw = null;
+        try{
+            reporte1 = new FileWriter("Hojas"+this.name+".dot");
+            pw = new PrintWriter(reporte1);
+
+            pw.println("digraph G {");
+
+            String hojas = "";
+            hojas = this.abb.Nodos_hoja(this.abb.root, hojas);
+            String rang = hojas.substring(0, hojas.length()-1);
+            String lista_hojas [] = rang.split(",");
+            
+            for (int i = 0; i < lista_hojas.length; i++) {
+                pw.println("nodo"+i+"[label =\""+lista_hojas[i]+"\"];");
+            }
+            
+            pw.println("label = \"Nodos hoja del arbol de capas\";");
+            pw.println("}");
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{       
+                if(null != reporte1){
+                    reporte1.close();
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Hojas"+this.name+".png","Hojas"+this.name+".dot");
+                    buil.redirectErrorStream(true);
+                    buil.start();           
+                }
+        }catch(Exception e2){
+            e2.printStackTrace();
+        }
+        }
+    
+    }
+    
+    public void Recorridos(){
+        
+        String preorder = this.abb.preorder(this.abb.root, "");
+        preorder = preorder.substring(0, preorder.length()-1);
+        String L_preorder [] = preorder.split(",");
+        
+        String inorder = this.abb.inorden(this.abb.root, "");
+        inorder = inorder.substring(0, inorder.length()-1);
+        String L_inorder [] = inorder.split(",");
+        
+        String postorder = this.abb.postorden(this.abb.root, "");
+        postorder = postorder.substring(0, postorder.length()-1);
+        String L_postorder [] = postorder.split(",");
+        
+        FileWriter reporte1 = null;
+        PrintWriter pw = null;
+        try{
+            reporte1 = new FileWriter("Recorridos"+this.name+".dot");
+            pw = new PrintWriter(reporte1);
+            
+            String contenido = "";
+            
+            pw.println("digraph G {");
+            
+            for (int i = 0; i < L_preorder.length; i++) {
+                contenido += "pre"+i+"[label = \"Capa_"+L_preorder[i]+"\"];\n";
+                contenido += "in"+i+"[label = \"Capa_"+L_inorder[i]+"\"];\n";
+                contenido += "post"+i+"[label = \"Capa_"+L_postorder[i]+"\"];\n";
+            }
+           
+            contenido += "rank = same{ Preorder -> pre0};\n";
+            contenido += "rank = same{ Inorder -> in0};\n";
+            contenido += "rank = same{ Postorder -> post0};\n";
+            
+            for (int i = 0; i < L_preorder.length-1; i++) {
+                contenido += "rank = same {pre"+i+" -> pre"+(i+1)+"};\n";
+                contenido += "rank = same {in"+i+" -> in"+(i+1)+"};\n";
+                contenido += "rank = same {post"+i+" -> post"+(i+1)+"};\n";
+            }
+            contenido += "Preorder -> Inorder -> Postorder[color = white];\n";
+            
+            pw.println(contenido);
+            pw.println("label = \"Recorridos Arbol de Capas\";");
+            pw.println("}");
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{       
+                if(null != reporte1){
+                    reporte1.close();
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Recorridos"+this.name+".png","Recorridos"+this.name+".dot");
+                    buil.redirectErrorStream(true);
+                    buil.start();           
+                }
+        }catch(Exception e2){
+            e2.printStackTrace();
+        }
+        }
+        
+    }
+    
+    public void Profundidad(){
+        FileWriter reporte1 = null;
+        PrintWriter pw = null;
+        try{
+            reporte1 = new FileWriter("Recorridos"+this.name+".dot");
+            pw = new PrintWriter(reporte1);
+            
+            String contenido = this.abb.profundidad(this.abb.root, 0);
+            
+            pw.println("digraph G {");
+            pw.println(contenido);
+            pw.println("label = \"Recorridos Arbol de Capas\";");
+            pw.println("}");
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{       
+                if(null != reporte1){
+                    reporte1.close();
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Recorridos"+this.name+".png","Recorridos"+this.name+".dot");
+                    buil.redirectErrorStream(true);
+                    buil.start();           
+                }
+        }catch(Exception e2){
+            e2.printStackTrace();
+        }
+        }
+    }
     
 }

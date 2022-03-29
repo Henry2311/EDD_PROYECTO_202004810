@@ -1,11 +1,12 @@
 
 package edd.proyecto1_fase2;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Objects;
 
 
 public class Arbol_B {
-
     
     int orden_arbol = 5;
     RamaB raiz;
@@ -30,8 +31,8 @@ public class Arbol_B {
     
     public class RamaB {
 
-        boolean hoja;//identificar si es una hoja
-        int contador;//identificar la cantidad de elementos que tiene la rama
+        boolean hoja;
+        int contador;
         NodoB primero;
 
         public RamaB() {
@@ -42,31 +43,29 @@ public class Arbol_B {
 
         public void insertar(NodoB nuevo) {
             if (primero == null) {
-                //primero en la lista
                 primero = nuevo;
                 contador++;
             } else {
-                //recorrer e insertar
                 NodoB aux = primero;
                 while (aux != null) {
-                    if (Objects.equals(aux.id, nuevo.id)) {//------------->ya existe en el arbol
+                    if (Objects.equals(aux.id, nuevo.id)) {
                         System.out.println("El ID " + nuevo.id + " ya existe");
                         break;
                     } else {
                         if (aux.id > nuevo.id) {
-                            if (aux == primero) {//------------->insertar al inicio
+                            if (aux == primero) {
                                 aux.anterior = nuevo;
                                 nuevo.siguiente = aux;
-                                //ramas del nodo
+                               
                                 aux.izquierda = nuevo.derecha;
                                 nuevo.derecha = null;
 
                                 primero = nuevo;
                                 contador++;
                                 break;
-                            } else {//------------->insertar en medio;
+                            } else {
                                 nuevo.siguiente = aux;
-                                //ramas del nodo
+                               
                                 aux.izquierda = nuevo.derecha;
                                 nuevo.derecha = null;
 
@@ -76,7 +75,7 @@ public class Arbol_B {
                                 contador++;
                                 break;
                             }
-                        } else if (aux.siguiente == null) {//------------->insertar al final
+                        } else if (aux.siguiente == null) {
                             aux.siguiente = nuevo;
                             nuevo.anterior = aux;
                             contador++;
@@ -139,7 +138,67 @@ public class Arbol_B {
             }
             return null;
         }
+        
+        public String graficar(){
+            String nodos = "";
+            NodoB aux = primero;
+            
+            nodos+=aux.c.dpi+"[label = \"|"+aux.c.name;
+            while(aux.siguiente!=null){
+                nodos+=" || "+aux.c.name;
+                aux = aux.siguiente;
+            }
+            if(aux.siguiente==null){nodos+="|\"]\n";}
+            
+            aux = primero;
+            while(aux!=null){
+                if(aux.izquierda != null){
+                    nodos+=aux.c.dpi+" -> "+aux.izquierda.primero.c.dpi+";\n";
+                    nodos+=aux.izquierda.graficar();
+                }
+                if(aux.derecha != null){
+                    nodos+=aux.c.dpi+" -> "+aux.derecha.primero.c.dpi+";\n";
+                    nodos+=aux.derecha.graficar();
+                }
+                aux = aux.siguiente;
+            }
+            
+            return nodos;
+        }
 
+        public String enlistar(int nivel){
+            String nodos = "";
+            NodoB aux = primero;
+            nodos+="nivel"+nivel+"[label=\"Nivel "+nivel+"\"]";
+            int total = aux.c.avl.Contar_Nodos(aux.c.avl.root, 0);
+            nodos+=aux.c.dpi+"[label=\""+aux.c.name+"\\n"+aux.c.dpi+"\\n"+total+"\"]";
+            nodos+="rank = same{nivel"+nivel+" -> "+aux.c.dpi+"};\n";
+            
+            while(aux.siguiente!=null){
+                total = aux.c.avl.Contar_Nodos(aux.c.avl.root, 0);
+                nodos+=aux.c.dpi+"[label=\""+aux.c.name+"\\n"+aux.c.dpi+"\\n"+total+"\"]";
+                nodos+="rank = same{"+aux.c.dpi+" -> "+aux.siguiente.c.dpi+"};\n";
+                aux = aux.siguiente;
+            }
+            if(aux.siguiente == null){
+                nodos+=aux.c.dpi+"[label=\""+aux.c.name+"\\n"+aux.c.dpi+"\\n"+total+"\"]";
+            }
+            aux = primero;
+            while(aux!=null){
+                if(aux.izquierda != null){
+                    nodos+="nivel"+nivel+" -> nivel"+(nivel+1)+";\n";
+                    nodos+=aux.izquierda.enlistar(nivel+1);
+                }
+                if(aux.derecha != null){
+                    
+                    nodos+=aux.derecha.enlistar(nivel+1);
+                }
+                aux = aux.siguiente;
+            }
+            
+            return nodos;
+        }
+        
     }
     
     public Arbol_B() {
@@ -154,7 +213,6 @@ public class Arbol_B {
         } else {
             NodoB obj = insertar_en_rama(nodo, raiz);
             if (obj != null) {
-                //si devuelve algo el metodo de insertar en rama quiere decir que creo una nueva rama, y se debe insertar en el arbol
                 raiz = new RamaB();
                 raiz.insertar(obj);
                 raiz.hoja = false;
@@ -166,7 +224,6 @@ public class Arbol_B {
         if (rama.hoja) {
             rama.insertar(nodo);
             if (rama.contador == orden_arbol) {
-                //si ya se insertaron todos los elementos posibles se debe dividir la rama
                 return dividir(rama);
             } else {
                 return null;
@@ -212,7 +269,6 @@ public class Arbol_B {
         int cont = 0;
         while (aux != null) {
             cont++;
-            //implementacion para dividir unicamente ramas de 4 nodos
             if (cont < 3) {
                 temp = new NodoB(aux.id, aux.c);
                 temp.izquierda = aux.izquierda;
@@ -221,7 +277,6 @@ public class Arbol_B {
                 } else {
                     temp.derecha = aux.derecha;
                 }
-                //si la rama posee ramas deja de ser hoja
                 if (temp.derecha != null && temp.izquierda != null) {
                     rizquierda.hoja = false;
                 }
@@ -235,7 +290,6 @@ public class Arbol_B {
                 temp = new NodoB(aux.id, aux.c);
                 temp.izquierda = aux.izquierda;
                 temp.derecha = aux.derecha;
-                //si la rama posee ramas deja de ser hoja
                 if (temp.derecha != null && temp.izquierda != null) {
                     rderecha.hoja = false;
                 }
@@ -255,5 +309,61 @@ public class Arbol_B {
         return aux;
     }
     
+    public void Graficar(String name){
+        FileWriter capa = null;
+        PrintWriter pw = null;
+        try{
+            capa = new FileWriter(name+"arbB.dot");
+            pw = new PrintWriter(capa);
+
+            pw.println("digraph G {");
+            pw.println("node[shape = \"Mrecord\"]");
+            String nodos = this.raiz.graficar();
+            pw.println(nodos);
+            pw.println("}");
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{       
+                if(null != capa){
+                    capa.close();
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o",name+"arbB.png",name+"arbB.dot");
+                    buil.redirectErrorStream(true);
+                    buil.start();           
+                }
+        }catch(Exception e2){
+        e2.printStackTrace();
+        }
+        }
+    
+    }
+    
+    public void Enlistar(String name){
+        FileWriter capa = null;
+        PrintWriter pw = null;
+        try{
+            capa = new FileWriter(name+"listaC.dot");
+            pw = new PrintWriter(capa);
+
+            pw.println("digraph G {");
+            pw.println("node[shape = \"box\"]");
+            String nodos = this.raiz.enlistar(0);
+            pw.println(nodos);
+            pw.println("}");
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{       
+                if(null != capa){
+                    capa.close();
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o",name+"listaC.png",name+"listaC.dot");
+                    buil.redirectErrorStream(true);
+                    buil.start();           
+                }
+        }catch(Exception e2){
+        e2.printStackTrace();
+        }
+        }
+    }
     
 }

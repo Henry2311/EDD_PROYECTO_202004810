@@ -95,28 +95,42 @@ public class Arbol_ABB {
         return contenido;
     }
 
-    public void preorder(Nodo raiz) {
+    public String preorder(Nodo raiz,String nodos) {
         if (raiz != null) {
-            System.out.println("Hoja: " + raiz.valor);
-            preorder(raiz.izq);
-            preorder(raiz.der);
+            nodos+=raiz.id.id+",";
+            nodos = preorder(raiz.izq,nodos);
+            nodos = preorder(raiz.der,nodos);
         }
+        return nodos;
     }
     
-    public void inorden(Nodo raiz) {
+    public String inorden(Nodo raiz,String nodos) {
         if (raiz != null) {
-            inorden(raiz.izq);
-            System.out.println("Hoja: " + raiz.valor);
-            inorden(raiz.der);
+            nodos = inorden(raiz.izq,nodos);
+            nodos+=raiz.id.id+",";
+            nodos = inorden(raiz.der,nodos);
         }
+        return nodos;
     }
 
-    public void postorden(Nodo raiz) {
+    public String postorden(Nodo raiz,String nodos) {
         if (raiz != null) {
-            postorden(raiz.izq);
-            postorden(raiz.der);
-            System.out.println("Hoja: " + raiz.valor);
+            nodos = postorden(raiz.izq,nodos);
+            nodos = postorden(raiz.der,nodos);
+            nodos+=raiz.id.id+",";
         }
+        return nodos;
+    }
+     
+
+    public String postordenL(Nodo raiz,String nodos,int contador) {
+        if (raiz != null && contador > 0) {
+            contador--;
+            nodos = postordenL(raiz.izq,nodos,contador);
+            nodos = postordenL(raiz.der,nodos,contador);
+            nodos+=raiz.id.id+",";
+        }
+        return nodos;
     }
     
     public Nodo search(int id){
@@ -133,6 +147,52 @@ public class Arbol_ABB {
         }
         return aux;
     }
+    
+    public int Contar_Nodos(Nodo raiz, int contador){
+        if (raiz.izq != null) {
+            contador = Contar_Nodos(raiz.izq,contador+1);
+        }
+        if(raiz.der !=null){
+            contador = Contar_Nodos(raiz.der,contador+1);
+        }
+        return contador;
+    }
+    
+    public String Nodos_hoja(Nodo raiz, String nodos){
+    
+        if(raiz != null){
+            if(raiz.der == null && raiz.izq == null){
+                nodos+="Capa"+raiz.id.id+",";
+            }
+            nodos = Nodos_hoja(raiz.izq,nodos);
+            nodos = Nodos_hoja(raiz.der,nodos);
+        }
+        return nodos;
+    }
+    
+    public String profundidad(Nodo raiz,int nivel){
+    
+        String nodos = "";
+        Nodo aux = raiz;
+        if(aux!=null){
+            nodos+="nivel"+nivel+"[label=\"Nivel "+nivel+"\"]";
+            
+            nodos+=aux.valor+"[label=\"Capa_"+aux.id.id+"\"]";
+            nodos+="rank = same{nivel"+nivel+" -> "+aux.valor+"};\n";
+            
+            if(aux.izq != null){
+                nodos+="nivel"+nivel+" -> nivel"+(nivel+1)+";\n";
+                nodos+=profundidad(aux.izq,nivel+1);
+            }
+            if(aux.der != null){
+                nodos+=profundidad(aux.der,nivel+1);
+            }    
+        }
+        
+        return nodos;
+    }
+        
+    
     
 }
 

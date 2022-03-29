@@ -40,22 +40,18 @@ public class Matriz {
         ci = head; // col iterator
         cip = null; // col iterator preview
         while (ci!=null) {
-            //System.out.println("PRIMER WHILE");
             if (ci.col == col) {
                 // search row
-                //System.out.println("COL==COL");
                 ri = ci; // row iterator
                 rip = null; // row iterator preview
                 while (ri!=null) {
                     if (ri.row == row) {                        
                         // update
-                      //  System.out.println("ROW==ROW");
                         ri.data = data;
                         update = true;
                         break;
                     } else if (ri.row > row) {
                         // add at middle
-                       // System.out.println("ROW>ROW");
                         newnode = new SparseNode(data, row, col);
                         newnode.up = rip;
                         newnode.down = ri;
@@ -65,7 +61,6 @@ public class Matriz {
                         break;
                     } else if (ri.down == null) {
                         // add at end
-                       // System.out.println("DOWN = NULL");
                         newnode = new SparseNode(data, row, col);
                         newnode.up = ri;
                         ri.down = newnode;
@@ -77,7 +72,6 @@ public class Matriz {
                 }
                 break;
             } else if (ci.col > col) {
-               // System.out.println("COL > COL");
                 // add at middle
                 if (row == 0) {
                     newnode = new SparseNode(data, row, col);
@@ -87,7 +81,6 @@ public class Matriz {
                     ci.left = newnode;
                     update = true;  
                 } else {
-                   // System.out.println("ELSE DE COL");
                     SparseNode tmp = new SparseNode("XX", 0, col);
                     tmp.left = cip;
                     tmp.right = ci;
@@ -100,15 +93,12 @@ public class Matriz {
                 break;
             } else if (ci.right == null) {
                 // add at end
-                //System.out.println("ELSE IF COL ");
                 if (row == 0) {
-                 //   System.out.println("ROW = 0");
                     newnode = new SparseNode(data, row, col);
                     newnode.left = ci;
                     ci.right = newnode;
                     update = true;
                 } else {
-                  //  System.out.println("ELSE DEL ROW = 0");
                     SparseNode tmp = new SparseNode("XX", 0, col);
                     tmp.left = ci;
                     ci.right = tmp;
@@ -124,18 +114,15 @@ public class Matriz {
 
         // bind row        
         if (!update) {
-           // System.out.println("UPDATE");
             ri = head; // col iterator
             rip = null; // col iterator preview
             while (ri!=null) {
                 if (ri.row == row) {
-                    //System.out.println("ROW == ROW DEL UPDATE");
                     // search col
                     ci = ri; // col iterator
                     cip = null; // col iterator preview
                     while (ci!=null) {
                         if (ci.col > col) {
-                            //System.out.println("COL > COL DEL UPDATE");
                             // add at middle                            
                             newnode.left = cip;
                             newnode.right = ci;
@@ -143,7 +130,6 @@ public class Matriz {
                             ci.left = newnode;
                             break;
                         } else if (ci.right == null) {
-                            //System.out.println("DERECHA NULL DEL UPDATE");
                             // add at end
                             newnode.left = ci;
                             ci.right = newnode;
@@ -156,13 +142,11 @@ public class Matriz {
                 } else if (ri.row > row) {
                     // add at middle
                     if (col == 0) {
-                        //System.out.println("COL == 0 DEL UPDATE");
                         newnode.up = cip;
                         newnode.down = ci;
                         cip.down = newnode;
                         ci.up = newnode;
                     } else {
-                        //System.out.println("ELSE DEL COL = 0 DEL UPDATE");
                         SparseNode tmp = new SparseNode("XX", row, 0);
                         tmp.up = cip;
                         tmp.down = ci;
@@ -175,7 +159,6 @@ public class Matriz {
                     break;
                 } else if (ri.down == null) {
                     // add at end
-                    //System.out.println("ABAJO NULL DEL UPDATE");
                     if (col == 0) {
                         newnode.up = cip;
                         newnode.down = ci;
@@ -196,7 +179,7 @@ public class Matriz {
             }    
         }
     }
-
+    
     void printRef(int dim) {
         SparseNode r, c;
         r = head;
@@ -209,17 +192,16 @@ public class Matriz {
                             if (c.row == j) {
                                 System.out.print(c.data+" ");
                                 c = c.down;
-                            } else System.out.print("   "); // empty col at middle
-                        } else System.out.print("   "); // empty col at end
+                            } else System.out.print("   "); 
+                        } else System.out.print("   "); 
                     }
                     r = r.right;            
-                } else { // empty row at middle
+                } else { 
                     for (int j = 0; j < dim; j++) {
                         System.out.print("   ");
                     }
-    
                 }                
-            } else { //empty row at end
+            } else { 
                 for (int j = 0; j < dim; j++) {
                     System.out.print("   ");
                 }
@@ -227,6 +209,30 @@ public class Matriz {
             System.out.println();            
         }
 
+    }
+    
+    Matriz Nuevo(Matriz nuevo,int dim){
+        SparseNode r, c;
+        r = head;
+        for (int i = 0; i < dim; i++) {
+            if (r!=null) {
+                if (r.row == i) {
+                    c = r;
+                    for (int j = 0; j < dim; j++) {                        
+                        if (c != null) {
+                            if (c.col == j) {
+                                if(!c.data.equals("XX")){
+                                    nuevo.add(c.data, c.row, c.col);
+                                }
+                                c = c.right;
+                            }
+                        }
+                    }
+                    r = r.down;            
+                }                
+            }
+        }
+        return nuevo;
     }
     
     public void Graphviz(int dimx,int dimy,String name){
@@ -239,7 +245,7 @@ public class Matriz {
         pw.println("digraph G {");
         pw.println("node [shape=box]");
         
-        pw.println(" Mt[ label = \"\", style = filled, group = 0 ];");
+        pw.println(" Mt[ label = \"\", group = 0 ];");
         pw.println("e0[ shape = point, width = 0 ];\n" +
                    "e1[ shape = point, width = 0 ];");
         
@@ -327,5 +333,71 @@ public class Matriz {
         }
         }
     }
+    
+    public void imagen_png(int dimx,int dimy,String name){
+        FileWriter capa = null;
+        PrintWriter pw = null;
+        try{
+        capa = new FileWriter(name+"HD.dot");
+        pw = new PrintWriter(capa);
+        
+        pw.println("digraph G {");
+        pw.println("a0 [label=< \n <TABLE cellspacing=\"0\" cellpadding=\"10\">");
+        
+        String contenido="";
+        SparseNode r, c;
+        r = head;
+        for (int i = 0; i < dimy+1; i++) {
+            if (r!=null) {
+                if (r.col == i) {
+                    c = r;
+                    contenido+="<TR>";
+                    for (int j = 0; j < dimx+1; j++) {                        
+                        if (c != null) {
+                            if (c.row == j) {
+                                if(!c.data.equals("XX")){
+                                    contenido+="<TD bgcolor=\""+c.data.toString()+"\"></TD>\n";
+                                }else{
+                                    contenido+="<TD bgcolor=\"#ffffff\"></TD>\n";
+                                }
+                                c = c.down;
+                            } else contenido+="<TD bgcolor=\"#ffffff\"></TD>\n"; 
+                        } else contenido+="<TD bgcolor=\"#ffffff\"></TD>\n"; 
+                    }
+                    r = r.right;            
+                } else { 
+                    contenido+="<TR>";
+                    for (int j = 0; j < dimx+1; j++) {
+                        contenido+="<TD bgcolor=\"#ffffff\"></TD>\n";
+                    }
+                }                
+            } else { 
+                contenido+="<TR>";
+                for (int j = 0; j < dimx+1; j++) {
+                    contenido+="<TD bgcolor=\"#ffffff\"></TD>\n";
+                }
+            }
+            contenido+="</TR>";            
+        }
+        contenido+="</TABLE>>][color=white]";
+        pw.println(contenido);
+        pw.println("}");
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{       
+                if(null != capa){
+                    capa.close();
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o",name+"HD.png",name+"HD.dot");
+                    buil.redirectErrorStream(true);
+                    buil.start();           
+                }
+        }catch(Exception e2){
+        e2.printStackTrace();
+        }
+        }
+    }
+    
     
 }

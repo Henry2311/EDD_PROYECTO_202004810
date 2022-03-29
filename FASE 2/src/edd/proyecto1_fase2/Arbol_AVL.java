@@ -175,14 +175,52 @@ public class Arbol_AVL {
     
         Nodo aux = this.root;
         
-        while(aux.value != id){
-            if(id<aux.value){
-                aux = aux.left;
-            }else{
-                aux = aux.right;
+        if(aux!=null){
+            while(aux.value != id){
+                if(id<aux.value){
+                    aux = aux.left;
+                }else{
+                    aux = aux.right;
+                }
+
+                if(aux == null){
+                    return null;
+                }
             }
-            if(aux == null){return null;}
         }
         return aux;
     }
+    
+    public int Contar_Nodos(Nodo raiz, int contador){
+        if(raiz!=null){
+            if (raiz.left != null) {
+                contador = Contar_Nodos(raiz.left,contador+1);
+            }
+            if(raiz.right !=null){
+                contador = Contar_Nodos(raiz.right,contador+1);
+            }
+        }
+        return contador;
+    }
+    
+    public Lista añadir_lista(Nodo raiz,Lista top){
+        if(raiz!=null){
+            if (raiz.left != null) {
+                int cantidad = raiz.img.arb.Contar_Nodos(raiz.img.arb.root, 0);
+                top_img t = new top_img("Imagen "+raiz.img.id,cantidad);
+                System.out.println("Imagen "+raiz.img.id);
+                top.append(t);
+                top = añadir_lista(raiz.left,top);
+            }
+            if(raiz.right !=null){
+                int cantidad = raiz.img.arb.Contar_Nodos(raiz.img.arb.root, 0);
+                top_img t = new top_img("Imagen "+raiz.img.id,cantidad);
+                System.out.println("Imagen "+raiz.img.id);
+                top.append(t);
+                top = añadir_lista(raiz.right,top);
+            }
+        }
+        return top;
+    }
+    
 }

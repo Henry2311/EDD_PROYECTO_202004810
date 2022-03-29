@@ -8,10 +8,15 @@ package edd.proyecto1_fase2;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class admin extends javax.swing.JFrame {
     
@@ -38,7 +43,14 @@ public class admin extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jButton6 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,28 +166,112 @@ public class admin extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Carga de Usuarios", jPanel1);
 
+        jButton6.setText("Generar Arbol");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText(".");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 966, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1033, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 616, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ver Usuarios", jPanel2);
+
+        jLabel3.setText(".");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 971, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jButton7.setText("Buscar Cliente");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("Listar Clientes");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1033, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton8))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 616, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reportes", jPanel3);
@@ -262,6 +358,103 @@ public class admin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        EDDProyecto1_fase2.CLIENTES.Graficar("Clientes");
+        ImageIcon img = new ImageIcon("ClientesarbB.png");
+        Image nuevo = img.getImage().getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon render = new ImageIcon(nuevo);
+        this.jLabel2.setIcon(render);
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+       Long id = Long.parseLong(JOptionPane.showInputDialog(this,"Ingrese el DPI del cliente: ","Buscar",JOptionPane.INFORMATION_MESSAGE));
+       Arbol_B.NodoB aux = EDDProyecto1_fase2.CLIENTES.Search(id);
+       if(aux!=null){
+            FileWriter capa = null;
+            PrintWriter pw = null;
+            try{
+                capa = new FileWriter(aux.c.name+"Buscar.dot");
+                pw = new PrintWriter(capa);
+
+                pw.println("digraph G {");
+                pw.println("node [shape=\"box\"]");
+                pw.println("label = \"Informacion\"");
+                pw.println("a0 [label=< \n <TABLE>");
+                String datos = "<TR> "
+                            + "<TD>Nombre</TD><TD>"+aux.c.name+"</TD>"
+                            + "</TR>";
+                datos += "<TR> "
+                            + "<TD>DPI</TD><TD>"+aux.c.dpi+"</TD>"
+                            + "</TR>";
+                datos += "<TR> "
+                            + "<TD>Password</TD><TD>"+aux.c.password+"</TD>"
+                            + "</TR>";
+                
+                int capas = aux.c.abb.Contar_Nodos(aux.c.abb.root, 1);
+                datos += "<TR> "
+                            + "<TD>Cantidad de Capas</TD><TD>"+capas+"</TD>"
+                            + "</TR>";
+                int imagenes = aux.c.avl.Contar_Nodos(aux.c.avl.root, 1);
+                datos += "<TR> "
+                            + "<TD>Cantidad de Imagenes</TD><TD>"+imagenes+"</TD>"
+                            + "</TR>";
+                datos += "<TR> "
+                            + "<TD>Cantidad de Album</TD><TD>"+aux.c.album.size()+"</TD>"
+                            + "</TR>";
+                
+                Lista.Nodo album = aux.c.album.first;
+                while(album != null){
+                    album al = (album) album.data;
+                    Lista.Nodo img = al.imagenes.first;
+                    
+                    datos += "<TR> "
+                            + "<TD>"+al.nombre.replace(" ", "_")+"</TD>";
+                    String cantidad = "";
+                    while(img != null){
+                        String data = (String) img.data;
+                        cantidad += data.replaceAll(" ", "_")+", ";
+                        img = img.next;
+                    }
+                    datos += "<TD>"+cantidad+"</TD></TR>";
+                    album = album.next;
+                }
+                
+                datos+="</TABLE>>];";
+                pw.println(datos);
+                pw.println("}");
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                try{       
+                    if(null != capa){
+                        capa.close();
+                        ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o",aux.c.name+"Buscar.png",aux.c.name+"Buscar.dot");
+                        buil.redirectErrorStream(true);
+                        buil.start();           
+                    }
+            }catch(Exception e2){
+            e2.printStackTrace();
+            }
+            }
+            
+            ImageIcon img = new ImageIcon(aux.c.name+"Buscar.png");
+            Image nuevo = img.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_SMOOTH);
+            ImageIcon render = new ImageIcon(nuevo);
+            this.jLabel3.setIcon(render);
+       }
+       
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        EDDProyecto1_fase2.CLIENTES.Enlistar("Clientes");
+        ImageIcon img = new ImageIcon("ClienteslistaC.png");
+        Image nuevo = img.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon render = new ImageIcon(nuevo);
+        this.jLabel3.setIcon(render);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
     public void actualizarTabla(){
         System.out.println("TAMAÑO DE LA LISTA: "+datosM.size());
         if(datosM.size()!=0){
@@ -293,10 +486,17 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;

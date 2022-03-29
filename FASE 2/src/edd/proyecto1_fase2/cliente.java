@@ -50,10 +50,14 @@ public class cliente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
@@ -85,7 +89,7 @@ public class cliente extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Por Recorrido", "Por Arbol", "Por Capa" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Preorder", "Inorder", "Postorder", "Por Arbol", "Por Capa" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -115,36 +119,57 @@ public class cliente extends javax.swing.JFrame {
 
         jButton4.setText("Eliminar");
 
-        jLabel6.setText(".");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel7.setText("Nombre: ");
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setText("DPI: ");
 
+        jLabel6.setText(".");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Imagen Lógica", jPanel6);
+
+        jLabel12.setText(".");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane2.addTab("Imagen HD", jPanel5);
+
+        jButton5.setText("Cerrar Sesión");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -160,29 +185,35 @@ public class cliente extends javax.swing.JFrame {
                             .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 807, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(jLabel7)
                         .addGap(322, 322, 322)
-                        .addComponent(jLabel8)))
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5)))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton5)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(26, 26, 26)
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
@@ -199,8 +230,11 @@ public class cliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton4))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Imagenes", jPanel1);
@@ -218,7 +252,12 @@ public class cliente extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel10.setText("Estructuras");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Top 5 ", "Capas hoja", "Profundidad de Arbol", "Recorrido" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Top 5", "Capas hoja", "Profundidad de Arbol", "Recorrido" }));
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText(".");
 
@@ -289,7 +328,144 @@ public class cliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
+        String option = (String) this.jComboBox1.getSelectedItem();
+        
+        switch (option) {
+            case "Preorder":
+                {
+                    int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese el limite del recorrido","Limite",JOptionPane.INFORMATION_MESSAGE));
+                    String preorder = this.c.abb.preorder(this.c.abb.root, "");
+                    preorder = preorder.substring(0, id+(id-1));
+                    System.out.println(preorder);
+                    break;
+                }
+            case "Inorder":
+                {
+                    int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese el limite del recorrido","LImite",JOptionPane.INFORMATION_MESSAGE));
+                    String preorder = this.c.abb.inorden(this.c.abb.root, "");
+                    preorder = preorder.substring(0, id+(id-1));
+                    System.out.println(preorder);
+                    break;
+                }
+            case "Postorder":
+                {
+                    int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese el limite del recorrido","Limite",JOptionPane.INFORMATION_MESSAGE));
+                    String preorder = this.c.abb.postorden(this.c.abb.root, "");
+                    preorder = preorder.substring(0, id+(id-1));
+                    System.out.println(preorder);
+                    break;
+                }
+            case "Por Arbol":
+                {
+                    int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese ID de la imagen","Buscar",JOptionPane.INFORMATION_MESSAGE));
+                    Arbol_AVL.Nodo img = this.c.avl.search(id);
+                    if(img != null){
+                        int id_imagen = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese un ID nuevo a la imagen","Registrar",JOptionPane.INFORMATION_MESSAGE));
+                        Arbol_AVL.Nodo tmp = this.c.avl.search(id_imagen);
+                        if(tmp == null){
+                            String capasI = img.img.arb.preorder(img.img.arb.root, "");
+                            capasI = capasI.substring(0, capasI.length()-1);
+                            String capas [] = capasI.split(",");
+                            
+                            Matriz imagen = new Matriz();
+                            Arbol_ABB arb = new Arbol_ABB();
+                            int x = 0, y = 0;
+                            for (int i = 0; i < capas.length; i++) {
+                                int tmp_id = Integer.parseInt(capas[i]);
+                                Arbol_ABB.Nodo capaxd = this.c.abb.search(tmp_id);
+                                System.out.println("CAPA: "+capaxd.valor);
+                                capa aux_c = capaxd.id;
+
+                                SparseNode r = aux_c.pixeles.head;
+                                if(aux_c.x>x){
+                                    x=aux_c.x;
+                                }
+                                if(aux_c.y>y){
+                                    y=aux_c.y;
+                                }
+
+                                while(r!=null){
+                                    SparseNode col=r;
+                                    while(col!=null){
+                                        if(!col.data.equals("XX")){
+                                            imagen.add(col.data, col.row, col.col);
+                                        }
+                                        col = col.right;
+                                    }
+                                    r = r.down;  
+                                }
+                                arb.agregar(capaxd.valor, aux_c);
+                            }
+                            
+                            top_img top_n = new top_img("Imagen_"+id_imagen,capas.length);
+                            this.c.top.append(top_n);
+
+                            this.jComboBox2.addItem("IMG"+id_imagen);
+                            imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
+                            imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
+                            imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
+                            this.c.avl.add(nuevo.id,nuevo);
+                        }else{
+                            System.out.println("Nombre en uso");
+                        }
+                    }else{
+                        System.out.println("LA imagen no se ha registrado");
+                    }
+                    break;
+                }
+            case "Por Capa":
+                {
+                    String id = JOptionPane.showInputDialog(this,"Ingrese las capas a utilizar separadas por coma ","Buscar",JOptionPane.INFORMATION_MESSAGE);
+                    String capas [] = id.split(",");
+                    Matriz imagen = new Matriz();
+                    Arbol_ABB arb = new Arbol_ABB();
+                    int x = 0, y = 0;
+                    for (int i = 0; i < capas.length; i++) {
+                        Arbol_ABB.Nodo capaxd = this.c.abb.search(Integer.parseInt(capas[i]));
+                        System.out.println("CAPA: "+capaxd.valor);
+                        capa aux_c = capaxd.id;
+                        
+                        SparseNode r = aux_c.pixeles.head;
+                        if(aux_c.x>x){
+                            x=aux_c.x;
+                        }
+                        if(aux_c.y>y){
+                            y=aux_c.y;
+                        }
+
+                        while(r!=null){
+                            SparseNode col=r;
+                            while(col!=null){
+                                if(!col.data.equals("XX")){
+                                    imagen.add(col.data, col.row, col.col);
+                                }
+                                col = col.right;
+                            }
+                            r = r.down;  
+                        }
+                        arb.agregar(capaxd.valor, aux_c);
+                    }
+                    int id_imagen = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese un ID nuevo a la imagen","Registrar",JOptionPane.INFORMATION_MESSAGE));
+                    Arbol_AVL.Nodo tmp = this.c.avl.search(id_imagen);
+                    
+                    if(tmp == null){
+                        top_img top_n = new top_img("Imagen_"+id_imagen,capas.length);
+                        this.c.top.append(top_n);
+
+                        this.jComboBox2.addItem("IMG"+id_imagen);
+                        imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
+                        imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
+                        imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
+                        this.c.avl.add(nuevo.id,nuevo);
+                    }else{
+                        System.out.println("Nombre e nuso");
+                    }
+                    
+                    
+                }
+            default:
+                break;
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -380,32 +556,43 @@ public class cliente extends javax.swing.JFrame {
                 int id_imagen = cap.get("id").getAsInt();
                 JsonArray capas = cap.get("capas").getAsJsonArray();
                 Matriz imagen = new Matriz();
+                Matriz hd = new Matriz();
                 Arbol_ABB arb = new Arbol_ABB();
+                
                 int x = 0, y = 0;
                 for (int j = 0; j < capas.size(); j++) {
                     int id = capas.get(j).getAsInt();
-                    Arbol_ABB.Nodo capa = this.c.abb.search(id);
-                    System.out.println("CAPA: "+capa.valor);
-                    capa aux_c = capa.id;
-                    SparseNode r = aux_c.pixeles.head, col;
+                    Arbol_ABB.Nodo capaxd = this.c.abb.search(id);
+                    System.out.println("CAPA: "+capaxd.valor);
+                    capa aux_c = capaxd.id;
+                    
+                    SparseNode r = aux_c.pixeles.head;
                     if(aux_c.x>x){
                         x=aux_c.x;
                     }
                     if(aux_c.y>y){
                         y=aux_c.y;
                     }
+                    
                     while(r!=null){
-                        col=r;
+                        SparseNode col=r;
                         while(col!=null){
                             if(!col.data.equals("XX")){
                                 imagen.add(col.data, col.row, col.col);
+                                hd.add(col.data, col.row, col.col);
+                                System.out.println(col.row+", "+col.col+", "+col.data);
+                                
                             }
                             col = col.right;
                         }
                         r = r.down;  
                     }
                     arb.agregar(id, aux_c);
+                    
                 }
+                top_img top_n = new top_img("Imagen_"+id_imagen,capas.size());
+                this.c.top.append(top_n);
+                
                 if(x>=y){
                     imagen.printRef(x);
                 }else{
@@ -413,6 +600,7 @@ public class cliente extends javax.swing.JFrame {
                 }
                 this.jComboBox2.addItem("IMG"+id_imagen);
                 imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
+                hd.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
                 imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
                 this.c.avl.add(nuevo.id,nuevo);
             }
@@ -435,6 +623,11 @@ public class cliente extends javax.swing.JFrame {
             Image nuevo = img.getImage().getScaledInstance(jLabel6.getWidth(), jLabel6.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon render = new ImageIcon(nuevo);
             this.jLabel6.setIcon(render);
+            
+            ImageIcon img2 = new ImageIcon(this.c.getName()+option+"HD.png");
+            Image nuevo2 = img2.getImage().getScaledInstance(jLabel12.getWidth(), jLabel12.getHeight(), Image.SCALE_SMOOTH);
+            ImageIcon render2 = new ImageIcon(nuevo2);
+            this.jLabel12.setIcon(render2);
         }
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
@@ -546,6 +739,53 @@ public class cliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        new login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        String option = (String) this.jComboBox4.getSelectedItem();
+        
+        switch (option) {
+            case "Top 5":
+                {
+                    this.c.Top5();
+                    ImageIcon img = new ImageIcon("Top"+this.c.name+".png");
+                    Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon render = new ImageIcon(nuevo);
+                    this.jLabel11.setIcon(render);
+                    break;
+                }
+            case "Capas hoja":
+                {
+                    this.c.hojas();
+                    ImageIcon img = new ImageIcon("Hojas"+this.c.name+".png");
+                    Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon render = new ImageIcon(nuevo);
+                    this.jLabel11.setIcon(render);
+                    break;
+                }
+            case "Profundidad de Arbol":
+                {
+                    System.out.println("PROFUNDIDAD");
+                    this.c.Profundidad();
+                    break;
+                }
+            case "Recorrido":
+                {
+                    this.c.Recorridos();
+                    ImageIcon img = new ImageIcon("Recorridos"+this.c.name+".png");
+                    Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon render = new ImageIcon(nuevo);
+                    this.jLabel11.setIcon(render);
+                    break;
+                }
+            default:
+                break;
+        }
+    }//GEN-LAST:event_jComboBox4ActionPerformed
+
     public void info(){
         
         this.jLabel7.setText("Nombre: "+this.c.getName());
@@ -557,6 +797,7 @@ public class cliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -564,6 +805,7 @@ public class cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -574,8 +816,10 @@ public class cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     // End of variables declaration//GEN-END:variables
 }
