@@ -49,7 +49,6 @@ public class Arbol_B {
                 NodoB aux = primero;
                 while (aux != null) {
                     if (Objects.equals(aux.id, nuevo.id)) {
-                        System.out.println("El ID " + nuevo.id + " ya existe");
                         break;
                     } else {
                         if (aux.id > nuevo.id) {

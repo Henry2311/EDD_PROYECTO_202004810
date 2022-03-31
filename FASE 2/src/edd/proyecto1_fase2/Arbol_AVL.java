@@ -30,22 +30,28 @@ public class Arbol_AVL {
     }
 	
     Nodo add(int value, Nodo tmp, imagen img) {
-        if (tmp == null) tmp = new Nodo(value,img);
-            else if (value < tmp.value) {
+        if (tmp == null){ 
+            tmp = new Nodo(value,img);
+        }else if (value < tmp.value) {
             tmp.left = add(value, tmp.left, img);
-            if ((altura(tmp.left)-altura(tmp.right))==2) {
-                if (value<tmp.left.value) tmp = srl(tmp);
-                else tmp = drl(tmp);
+            if ((altura(tmp.left)-altura(tmp.right))==2){
+                if (value<tmp.left.value){ 
+                    tmp = srl(tmp);
+                }
+                else{
+                    tmp = drl(tmp);
+                }
             }            
-		}
-		else {
+	}else {
             tmp.right = add(value, tmp.right, img);
             if ((altura(tmp.right)-altura(tmp.left))==2) {
-                if (value>tmp.right.value) tmp = srr(tmp);
-                else tmp = drr(tmp);
-            }            
-
-		}
+                if (value>tmp.right.value){
+                    tmp = srr(tmp);
+                }else{
+                    tmp = drr(tmp);
+                }
+            }
+	}
         int d, i, m;
         d = altura(tmp.right);
         i = altura(tmp.left);
@@ -63,7 +69,7 @@ public class Arbol_AVL {
         return ((val1 > val2) ? val1 : val2);
     }
 
-    Nodo srl(Nodo t1) {
+    Nodo srl(Nodo t1) { //simple por la derecha
         Nodo t2;
         t2 = t1.left;
         t1.left = t2.right;
@@ -73,7 +79,7 @@ public class Arbol_AVL {
         return t2;
     }
 
-    Nodo srr(Nodo t1) {
+    Nodo srr(Nodo t1) {//simple por la izquierda
         Nodo t2;
         t2 = t1.right;
         t1.right = t2.left;
@@ -83,12 +89,12 @@ public class Arbol_AVL {
         return t2;
     }
 
-    Nodo drl(Nodo tmp) {
+    Nodo drl(Nodo tmp) {//doble por la izquierda        
         tmp.left = srr(tmp.left);
         return srl(tmp);
     }
 
-    Nodo drr(Nodo tmp) {
+    Nodo drr(Nodo tmp) {//doble por la derecha
         tmp.right = srl(tmp.right);
         return srr(tmp);
     }
@@ -147,30 +153,6 @@ public class Arbol_AVL {
         return contenido;
     }
     
-    void preorder(Nodo tmp) {
-        if (tmp != null) {
-            System.out.print(tmp.value+" ");
-            preorder(tmp.left);
-            preorder(tmp.right);
-	}
-    }
-
-    void enorder(Nodo tmp) {
-        if (tmp != null) {			
-            enorder(tmp.left);
-            System.out.print(tmp.value+" ");
-            enorder(tmp.right);
-	}
-    }
-	
-    void postorder(Nodo tmp) {
-        if (tmp != null) {			
-            postorder(tmp.left);
-            postorder(tmp.right);
-            System.out.print(tmp.value+" ");			
-	}
-    }
-
     public Nodo search(int id){
     
         Nodo aux = this.root;
@@ -203,24 +185,82 @@ public class Arbol_AVL {
         return contador;
     }
     
-    public Lista añadir_lista(Nodo raiz,Lista top){
-        if(raiz!=null){
-            if (raiz.left != null) {
-                int cantidad = raiz.img.arb.Contar_Nodos(raiz.img.arb.root, 0);
-                top_img t = new top_img("Imagen "+raiz.img.id,cantidad);
-                System.out.println("Imagen "+raiz.img.id);
-                top.append(t);
-                top = añadir_lista(raiz.left,top);
-            }
-            if(raiz.right !=null){
-                int cantidad = raiz.img.arb.Contar_Nodos(raiz.img.arb.root, 0);
-                top_img t = new top_img("Imagen "+raiz.img.id,cantidad);
-                System.out.println("Imagen "+raiz.img.id);
-                top.append(t);
-                top = añadir_lista(raiz.right,top);
-            }
-        }
-        return top;
+    public void eliminar(int id){
+        root = eliminarAVL(root,id);
     }
     
+    private Nodo eliminarAVL(Nodo actual, int id){
+        
+        if(actual == null){
+            return actual;
+        }
+        
+        if(id < actual.value){
+            actual.left = eliminarAVL(actual.left,id);
+        }else if(id > actual.value){
+            actual.right = eliminarAVL(actual.right,id);
+        }else{
+            if((actual.left == null) || (actual.right == null)){
+                Nodo temp = null;
+                if(temp == actual.left){
+                    temp = actual.right;
+                }else{
+                    temp = actual.left;
+                }
+                
+                if(temp == null){
+                    actual = null;
+                }else{
+                    actual = temp;
+                }
+                
+            }else{
+                Nodo temp =  Maximo(actual.left);
+                actual.value = temp.value;
+                actual.left = eliminarAVL(actual.left,temp.value);
+            }
+        }
+        
+        if(actual == null){
+            return actual;
+        }
+        
+        actual.alt = maxi(altura(actual.left),altura(actual.right))+1;
+        int FE =  getFactorEquilibrio(actual);
+        
+        if (FE > 1 && getFactorEquilibrio(actual.left) >= 0) {
+            return srl(actual);
+        }
+ 
+        if (FE < -1 && getFactorEquilibrio(actual.right) <= 0) {
+            return srr(actual);
+        }
+ 
+        if (FE > 1 && getFactorEquilibrio(actual.left) < 0) {
+            return drl(actual);
+        }
+        
+        if (FE < -1 && getFactorEquilibrio(actual.right) > 0) {
+            return drr(actual);
+        }
+        
+        return actual;
+    }
+    
+    private Nodo Maximo(Nodo node) {
+        Nodo current = node;
+        
+        while (current.right != null){
+           current = current.right;
+        }
+        
+        return current;
+    }
+    private int getFactorEquilibrio(Nodo nodoActual) {
+        if (nodoActual == null) {
+            return 0;
+        }
+ 
+        return altura(nodoActual.left) - altura(nodoActual.right);
+    }
 }

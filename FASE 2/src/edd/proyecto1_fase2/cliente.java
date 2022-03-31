@@ -28,6 +28,7 @@ public class cliente extends javax.swing.JFrame {
     
     public cliente(Clientes c) {
         initComponents();
+        setLocationRelativeTo(null);
         this.c = c;
         info();
     }
@@ -118,6 +119,11 @@ public class cliente extends javax.swing.JFrame {
         });
 
         jButton4.setText("Eliminar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel7.setText("Nombre: ");
@@ -335,94 +341,14 @@ public class cliente extends javax.swing.JFrame {
                 {
                     int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese el limite del recorrido","Limite",JOptionPane.INFORMATION_MESSAGE));
                     String preorder = this.c.abb.preorder(this.c.abb.root, "");
+                    this.jLabel4.setText(preorder);
                     preorder = preorder.substring(0, id+(id-1));
-                    System.out.println(preorder);
-                    break;
-                }
-            case "Inorder":
-                {
-                    int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese el limite del recorrido","LImite",JOptionPane.INFORMATION_MESSAGE));
-                    String preorder = this.c.abb.inorden(this.c.abb.root, "");
-                    preorder = preorder.substring(0, id+(id-1));
-                    System.out.println(preorder);
-                    break;
-                }
-            case "Postorder":
-                {
-                    int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese el limite del recorrido","Limite",JOptionPane.INFORMATION_MESSAGE));
-                    String preorder = this.c.abb.postorden(this.c.abb.root, "");
-                    preorder = preorder.substring(0, id+(id-1));
-                    System.out.println(preorder);
-                    break;
-                }
-            case "Por Arbol":
-                {
-                    int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese ID de la imagen","Buscar",JOptionPane.INFORMATION_MESSAGE));
-                    Arbol_AVL.Nodo img = this.c.avl.search(id);
-                    if(img != null){
-                        int id_imagen = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese un ID nuevo a la imagen","Registrar",JOptionPane.INFORMATION_MESSAGE));
-                        Arbol_AVL.Nodo tmp = this.c.avl.search(id_imagen);
-                        if(tmp == null){
-                            String capasI = img.img.arb.preorder(img.img.arb.root, "");
-                            capasI = capasI.substring(0, capasI.length()-1);
-                            String capas [] = capasI.split(",");
-                            
-                            Matriz imagen = new Matriz();
-                            Arbol_ABB arb = new Arbol_ABB();
-                            int x = 0, y = 0;
-                            for (int i = 0; i < capas.length; i++) {
-                                int tmp_id = Integer.parseInt(capas[i]);
-                                Arbol_ABB.Nodo capaxd = this.c.abb.search(tmp_id);
-                                System.out.println("CAPA: "+capaxd.valor);
-                                capa aux_c = capaxd.id;
-
-                                SparseNode r = aux_c.pixeles.head;
-                                if(aux_c.x>x){
-                                    x=aux_c.x;
-                                }
-                                if(aux_c.y>y){
-                                    y=aux_c.y;
-                                }
-
-                                while(r!=null){
-                                    SparseNode col=r;
-                                    while(col!=null){
-                                        if(!col.data.equals("XX")){
-                                            imagen.add(col.data, col.row, col.col);
-                                        }
-                                        col = col.right;
-                                    }
-                                    r = r.down;  
-                                }
-                                arb.agregar(capaxd.valor, aux_c);
-                            }
-                            
-                            top_img top_n = new top_img("Imagen_"+id_imagen,capas.length);
-                            this.c.top.append(top_n);
-
-                            this.jComboBox2.addItem("IMG"+id_imagen);
-                            imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
-                            imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
-                            imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
-                            this.c.avl.add(nuevo.id,nuevo);
-                        }else{
-                            System.out.println("Nombre en uso");
-                        }
-                    }else{
-                        System.out.println("LA imagen no se ha registrado");
-                    }
-                    break;
-                }
-            case "Por Capa":
-                {
-                    String id = JOptionPane.showInputDialog(this,"Ingrese las capas a utilizar separadas por coma ","Buscar",JOptionPane.INFORMATION_MESSAGE);
-                    String capas [] = id.split(",");
-                    Matriz imagen = new Matriz();
+                    String capas [] = preorder.split(",");
+                    MatrizOrtogonal imagen = new MatrizOrtogonal();
                     Arbol_ABB arb = new Arbol_ABB();
                     int x = 0, y = 0;
                     for (int i = 0; i < capas.length; i++) {
                         Arbol_ABB.Nodo capaxd = this.c.abb.search(Integer.parseInt(capas[i]));
-                        System.out.println("CAPA: "+capaxd.valor);
                         capa aux_c = capaxd.id;
                         
                         SparseNode r = aux_c.pixeles.head;
@@ -437,7 +363,7 @@ public class cliente extends javax.swing.JFrame {
                             SparseNode col=r;
                             while(col!=null){
                                 if(!col.data.equals("XX")){
-                                    imagen.add(col.data, col.row, col.col);
+                                    imagen.insertar(col.col, col.row, col.data.toString());
                                 }
                                 col = col.right;
                             }
@@ -449,7 +375,7 @@ public class cliente extends javax.swing.JFrame {
                     Arbol_AVL.Nodo tmp = this.c.avl.search(id_imagen);
                     
                     if(tmp == null){
-                        top_img top_n = new top_img("Imagen_"+id_imagen,capas.length);
+                        top_img top_n = new top_img("IMG"+id_imagen,capas.length);
                         this.c.top.append(top_n);
 
                         this.jComboBox2.addItem("IMG"+id_imagen);
@@ -457,11 +383,221 @@ public class cliente extends javax.swing.JFrame {
                         imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
                         imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
                         this.c.avl.add(nuevo.id,nuevo);
+                        JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
                     }else{
-                        System.out.println("Nombre e nuso");
+                        JOptionPane.showMessageDialog(this, "ID en uso, ingrese un ID diferente");
                     }
+                    break;
+                }
+            case "Inorder":
+                {
+                    int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese el limite del recorrido","LImite",JOptionPane.INFORMATION_MESSAGE));
+                    String preorder = this.c.abb.inorden(this.c.abb.root, "");
+                    this.jLabel4.setText(preorder);
+                    preorder = preorder.substring(0, id+(id-1));
+                    String capas [] = preorder.split(",");
+                    MatrizOrtogonal imagen = new MatrizOrtogonal();
+                    Arbol_ABB arb = new Arbol_ABB();
+                    int x = 0, y = 0;
+                    for (int i = 0; i < capas.length; i++) {
+                        Arbol_ABB.Nodo capaxd = this.c.abb.search(Integer.parseInt(capas[i]));
+                        capa aux_c = capaxd.id;
+                        
+                        SparseNode r = aux_c.pixeles.head;
+                        if(aux_c.x>x){
+                            x=aux_c.x;
+                        }
+                        if(aux_c.y>y){
+                            y=aux_c.y;
+                        }
+
+                        while(r!=null){
+                            SparseNode col=r;
+                            while(col!=null){
+                                if(!col.data.equals("XX")){
+                                    imagen.insertar(col.col, col.row, col.data.toString());
+                                }
+                                col = col.right;
+                            }
+                            r = r.down;  
+                        }
+                        arb.agregar(capaxd.valor, aux_c);
+                    }
+                    int id_imagen = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese un ID nuevo a la imagen","Registrar",JOptionPane.INFORMATION_MESSAGE));
+                    Arbol_AVL.Nodo tmp = this.c.avl.search(id_imagen);
                     
+                    if(tmp == null){
+                        top_img top_n = new top_img("IMG"+id_imagen,capas.length);
+                        this.c.top.append(top_n);
+
+                        this.jComboBox2.addItem("IMG"+id_imagen);
+                        imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
+                        imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
+                        imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
+                        this.c.avl.add(nuevo.id,nuevo);
+                        JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
+                    }else{
+                        JOptionPane.showMessageDialog(this, "ID en uso, ingrese un ID diferente");
+                    }
+                    break;
+                }
+            case "Postorder":
+                {
+                    int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese el limite del recorrido","Limite",JOptionPane.INFORMATION_MESSAGE));
+                    String preorder = this.c.abb.postorden(this.c.abb.root, "");
+                    this.jLabel4.setText(preorder);
+                    preorder = preorder.substring(0, id+(id-1));
+                    String capas [] = preorder.split(",");
+                    MatrizOrtogonal imagen = new MatrizOrtogonal();
+                    Arbol_ABB arb = new Arbol_ABB();
+                    int x = 0, y = 0;
+                    for (int i = 0; i < capas.length; i++) {
+                        Arbol_ABB.Nodo capaxd = this.c.abb.search(Integer.parseInt(capas[i]));
+                        capa aux_c = capaxd.id;
+                        
+                        SparseNode r = aux_c.pixeles.head;
+                        if(aux_c.x>x){
+                            x=aux_c.x;
+                        }
+                        if(aux_c.y>y){
+                            y=aux_c.y;
+                        }
+
+                        while(r!=null){
+                            SparseNode col=r;
+                            while(col!=null){
+                                if(!col.data.equals("XX")){
+                                    imagen.insertar(col.col, col.row, col.data.toString());
+                                }
+                                col = col.right;
+                            }
+                            r = r.down;  
+                        }
+                        arb.agregar(capaxd.valor, aux_c);
+                    }
+                    int id_imagen = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese un ID nuevo a la imagen","Registrar",JOptionPane.INFORMATION_MESSAGE));
+                    Arbol_AVL.Nodo tmp = this.c.avl.search(id_imagen);
                     
+                    if(tmp == null){
+                        top_img top_n = new top_img("IMG"+id_imagen,capas.length);
+                        this.c.top.append(top_n);
+
+                        this.jComboBox2.addItem("IMG"+id_imagen);
+                        imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
+                        imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
+                        imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
+                        this.c.avl.add(nuevo.id,nuevo);
+                        JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
+                    }else{
+                        JOptionPane.showMessageDialog(this, "ID en uso, ingrese un ID diferente");
+                    }
+                    break;
+                }
+            case "Por Arbol":
+                {
+                    int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese ID de la imagen","Buscar",JOptionPane.INFORMATION_MESSAGE));
+                    Arbol_AVL.Nodo img = this.c.avl.search(id);
+                    if(img != null){
+                        int id_imagen = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese un ID nuevo a la imagen","Registrar",JOptionPane.INFORMATION_MESSAGE));
+                        Arbol_AVL.Nodo tmp = this.c.avl.search(id_imagen);
+                        if(tmp == null){
+                            String capasI = img.img.arb.preorder(img.img.arb.root, "");
+                            capasI = capasI.substring(0, capasI.length()-1);
+                            String capas [] = capasI.split(",");
+                            
+                            MatrizOrtogonal imagen = new MatrizOrtogonal();
+                            Arbol_ABB arb = new Arbol_ABB();
+                            int x = 0, y = 0;
+                            for (int i = 0; i < capas.length; i++) {
+                                int tmp_id = Integer.parseInt(capas[i]);
+                                Arbol_ABB.Nodo capaxd = this.c.abb.search(tmp_id);
+                                capa aux_c = capaxd.id;
+
+                                SparseNode r = aux_c.pixeles.head;
+                                if(aux_c.x>x){
+                                    x=aux_c.x;
+                                }
+                                if(aux_c.y>y){
+                                    y=aux_c.y;
+                                }
+
+                                while(r!=null){
+                                    SparseNode col=r;
+                                    while(col!=null){
+                                        if(!col.data.equals("XX")){
+                                            imagen.insertar(col.col, col.row, col.data.toString());
+                                        }
+                                        col = col.right;
+                                    }
+                                    r = r.down;  
+                                }
+                                arb.agregar(capaxd.valor, aux_c);
+                            }
+                            
+                            top_img top_n = new top_img("IMG"+id_imagen,capas.length);
+                            this.c.top.append(top_n);
+
+                            this.jComboBox2.addItem("IMG"+id_imagen);
+                            imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
+                            imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
+                            imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
+                            this.c.avl.add(nuevo.id,nuevo);
+                            JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
+                        }else{
+                            JOptionPane.showMessageDialog(this, "ID en uso, ingrese un ID diferente");
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Imagen no encontrada");
+                    }
+                    break;
+                }
+            case "Por Capa":
+                {
+                    String id = JOptionPane.showInputDialog(this,"Ingrese las capas a utilizar separadas por coma ","Buscar",JOptionPane.INFORMATION_MESSAGE);
+                    String capas [] = id.split(",");
+                    MatrizOrtogonal imagen = new MatrizOrtogonal();
+                    Arbol_ABB arb = new Arbol_ABB();
+                    int x = 0, y = 0;
+                    for (int i = 0; i < capas.length; i++) {
+                        Arbol_ABB.Nodo capaxd = this.c.abb.search(Integer.parseInt(capas[i]));
+                        capa aux_c = capaxd.id;
+                        
+                        SparseNode r = aux_c.pixeles.head;
+                        if(aux_c.x>x){
+                            x=aux_c.x;
+                        }
+                        if(aux_c.y>y){
+                            y=aux_c.y;
+                        }
+
+                        while(r!=null){
+                            SparseNode col=r;
+                            while(col!=null){
+                                if(!col.data.equals("XX")){
+                                    imagen.insertar(col.col, col.row, col.data.toString());
+                                }
+                                col = col.right;
+                            }
+                            r = r.down;  
+                        }
+                        arb.agregar(capaxd.valor, aux_c);
+                    }
+                    int id_imagen = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese un ID nuevo a la imagen","Registrar",JOptionPane.INFORMATION_MESSAGE));
+                    Arbol_AVL.Nodo tmp = this.c.avl.search(id_imagen);
+                    
+                    if(tmp == null){
+                        top_img top_n = new top_img("IMG"+id_imagen,capas.length);
+                        this.c.top.append(top_n);
+
+                        this.jComboBox2.addItem("IMG"+id_imagen);
+                        imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
+                        imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
+                        imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
+                        this.c.avl.add(nuevo.id,nuevo);
+                        JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
+                    }else{
+                        JOptionPane.showMessageDialog(this, "ID en uso, ingrese un ID diferente");
+                    }                   
                 }
             default:
                 break;
@@ -472,7 +608,6 @@ public class cliente extends javax.swing.JFrame {
         
         FileReader fr = null;
         try {
-            // TODO add your handling code here:
             String file="";
             File archivo=null;
             JFileChooser fc = new JFileChooser();
@@ -511,15 +646,10 @@ public class cliente extends javax.swing.JFrame {
                     }
                     pixeles.add(color, columna, fila);
                 }
-                if(x>=y){
-                    pixeles.printRef(x);
-                }else{
-                    pixeles.printRef(y);
-                }
                 capa nuevo = new capa(id_capa,pixeles,x,y);
                 this.c.abb.agregar(nuevo.id, nuevo);
             }
-            
+            JOptionPane.showMessageDialog(this, "Se han cargado las capas correctamente");
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -555,15 +685,13 @@ public class cliente extends javax.swing.JFrame {
                 JsonObject cap = imagenes.get(i).getAsJsonObject();
                 int id_imagen = cap.get("id").getAsInt();
                 JsonArray capas = cap.get("capas").getAsJsonArray();
-                Matriz imagen = new Matriz();
-                Matriz hd = new Matriz();
+                MatrizOrtogonal imagen = new MatrizOrtogonal();
                 Arbol_ABB arb = new Arbol_ABB();
                 
                 int x = 0, y = 0;
                 for (int j = 0; j < capas.size(); j++) {
                     int id = capas.get(j).getAsInt();
                     Arbol_ABB.Nodo capaxd = this.c.abb.search(id);
-                    System.out.println("CAPA: "+capaxd.valor);
                     capa aux_c = capaxd.id;
                     
                     SparseNode r = aux_c.pixeles.head;
@@ -578,10 +706,7 @@ public class cliente extends javax.swing.JFrame {
                         SparseNode col=r;
                         while(col!=null){
                             if(!col.data.equals("XX")){
-                                imagen.add(col.data, col.row, col.col);
-                                hd.add(col.data, col.row, col.col);
-                                System.out.println(col.row+", "+col.col+", "+col.data);
-                                
+                                imagen.insertar(col.col, col.row,col.data.toString());
                             }
                             col = col.right;
                         }
@@ -590,21 +715,17 @@ public class cliente extends javax.swing.JFrame {
                     arb.agregar(id, aux_c);
                     
                 }
-                top_img top_n = new top_img("Imagen_"+id_imagen,capas.size());
+                
+                top_img top_n = new top_img("IMG"+id_imagen,capas.size());
                 this.c.top.append(top_n);
                 
-                if(x>=y){
-                    imagen.printRef(x);
-                }else{
-                    imagen.printRef(y);
-                }
                 this.jComboBox2.addItem("IMG"+id_imagen);
                 imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
-                hd.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
+                imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
                 imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
                 this.c.avl.add(nuevo.id,nuevo);
             }
-            
+            JOptionPane.showMessageDialog(this, "Se han generado las imagenes correctamente");
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -638,6 +759,7 @@ public class cliente extends javax.swing.JFrame {
             case "Lista de albums":
                 {
                     this.c.Grafo_Albums();
+                    JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
                     ImageIcon img = new ImageIcon(this.c.getName()+"Albums.png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
@@ -647,6 +769,7 @@ public class cliente extends javax.swing.JFrame {
             case "Arbol de capas":
                 {
                     this.c.abb.Graficar(this.c.name);
+                    JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
                     ImageIcon img = new ImageIcon(this.c.getName()+"ABB.png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
@@ -656,6 +779,7 @@ public class cliente extends javax.swing.JFrame {
             case "Arbol de Imagenes":
                 {
                     this.c.avl.Graficar(this.c.name);
+                    JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
                     ImageIcon img = new ImageIcon(this.c.getName()+"AVL.png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
@@ -667,6 +791,7 @@ public class cliente extends javax.swing.JFrame {
                     int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese la imagen a buscar: ","Buscar",JOptionPane.INFORMATION_MESSAGE));
                     Arbol_AVL.Nodo aux = this.c.avl.search(id);
                     aux.img.arb.Graficar(this.c.name+"Capa"+aux.img.id);
+                    JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
                     ImageIcon img = new ImageIcon(this.c.name+"Capa"+aux.img.id+"ABB.png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
@@ -679,6 +804,7 @@ public class cliente extends javax.swing.JFrame {
                     Arbol_ABB.Nodo aux = this.c.abb.search(id);
                     capa tmp = aux.id;
                     tmp.pixeles.Graphviz(tmp.x, tmp.y, this.c.name+"Capa"+id+"Matriz");
+                    JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
                     ImageIcon img = new ImageIcon(this.c.name+"Capa"+id+"Matriz.png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
@@ -727,7 +853,7 @@ public class cliente extends javax.swing.JFrame {
                 album nuevo = new album(id_album,imagenes);
                 this.c.album.append(nuevo);
             }
-            
+            JOptionPane.showMessageDialog(this, "Se han cargado las albumes correctamente");
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -751,6 +877,7 @@ public class cliente extends javax.swing.JFrame {
             case "Top 5":
                 {
                     this.c.Top5();
+                    JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
                     ImageIcon img = new ImageIcon("Top"+this.c.name+".png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
@@ -760,6 +887,7 @@ public class cliente extends javax.swing.JFrame {
             case "Capas hoja":
                 {
                     this.c.hojas();
+                    JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
                     ImageIcon img = new ImageIcon("Hojas"+this.c.name+".png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
@@ -768,13 +896,18 @@ public class cliente extends javax.swing.JFrame {
                 }
             case "Profundidad de Arbol":
                 {
-                    System.out.println("PROFUNDIDAD");
                     this.c.Profundidad();
+                    JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
+                    ImageIcon img = new ImageIcon("Profundidad"+this.c.name+".png");
+                    Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon render = new ImageIcon(nuevo);
+                    this.jLabel11.setIcon(render);
                     break;
                 }
             case "Recorrido":
                 {
                     this.c.Recorridos();
+                    JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
                     ImageIcon img = new ImageIcon("Recorridos"+this.c.name+".png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
@@ -786,10 +919,31 @@ public class cliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String option = (String) this.jComboBox2.getSelectedItem();
+        if(!option.equals("--")){
+            option = option.replaceAll("IMG", "");
+            int id = Integer.parseInt(option);
+            this.c.avl.eliminar(id);
+            int comboid = this.jComboBox2.getSelectedIndex();
+            this.jComboBox2.removeItemAt(comboid);
+            JOptionPane.showMessageDialog(this, "Se ha eliminado la imagen");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     public void info(){
-        
         this.jLabel7.setText("Nombre: "+this.c.getName());
         this.jLabel8.setText("DPI: "+this.c.getDpi());
+        
+        Lista Lista_aux = this.c.top;
+        Lista.Nodo aux = Lista_aux.first;
+        
+        while(aux!=null){
+            top_img data = (top_img) aux.data;
+            this.jComboBox2.addItem(data.getNombre());
+            aux = aux.next;
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

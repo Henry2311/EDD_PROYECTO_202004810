@@ -154,7 +154,6 @@ public class Clientes {
     }
     
     public void Top5(){
-        System.out.println(top.size());
         Lista.Nodo aux = top.first; 
         if(aux!=null){
             Lista.Nodo actual = aux;
@@ -334,7 +333,7 @@ public class Clientes {
         FileWriter reporte1 = null;
         PrintWriter pw = null;
         try{
-            reporte1 = new FileWriter("Recorridos"+this.name+".dot");
+            reporte1 = new FileWriter("Profundidad"+this.name+".dot");
             pw = new PrintWriter(reporte1);
             
             String contenido = this.abb.profundidad(this.abb.root, 0);
@@ -350,7 +349,7 @@ public class Clientes {
             try{       
                 if(null != reporte1){
                     reporte1.close();
-                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Recorridos"+this.name+".png","Recorridos"+this.name+".dot");
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Profundidad"+this.name+".png","Profundidad"+this.name+".dot");
                     buil.redirectErrorStream(true);
                     buil.start();           
                 }

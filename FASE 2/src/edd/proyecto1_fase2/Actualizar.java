@@ -6,14 +6,16 @@
 package edd.proyecto1_fase2;
 
 import static edd.proyecto1_fase2.admin.datosM;
+import java.util.Objects;
 import javax.swing.JOptionPane;
 
 
-public class Register extends javax.swing.JFrame {
+public class Actualizar extends javax.swing.JFrame {
 
     static boolean dir;
-    public Register(boolean dir) {
+    public Actualizar(boolean dir) {
         initComponents();
+        buscar();
         this.dir = dir;
     }
 
@@ -34,7 +36,7 @@ public class Register extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Register - UDrawing Paper");
+        jLabel1.setText("Actualizar - UDrawing Paper");
 
         jLabel2.setText("Nombre completo");
 
@@ -49,7 +51,7 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Registrar");
+        jButton2.setText("Actualizar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -112,14 +114,23 @@ public class Register extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String nombre = this.jTextField1.getText();
         String pass = this.jTextField2.getText();
-        Long dpi = new Long(Long.parseLong(this.jTextField3.getText()));
-       
-        Clientes nuevo = new Clientes(dpi,
-                                     nombre,
-                                     pass);
-        EDDProyecto1_fase2.AgregarCliente(nuevo);
-        datosM.append(nuevo);
-        JOptionPane.showMessageDialog(this, "Se ha registrado el Cliente");
+        Long dpi = Long.parseLong(this.jTextField3.getText());
+        Arbol_B.NodoB cliente = EDDProyecto1_fase2.CLIENTES.Search(dpi);
+        
+        cliente.c.setName(nombre);
+        cliente.c.setPassword(pass);
+        
+        Lista.Nodo aux = datosM.first;
+        while(aux!=null){
+            Clientes clt = (Clientes) aux.data;
+            if(Objects.equals(clt.dpi, dpi)){
+                clt.setName(nombre);
+                clt.setPassword(pass);
+                break;
+            }
+            aux = aux.next;
+        }
+        JOptionPane.showMessageDialog(this, "Se ha actualizado la información del Cliente");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -132,6 +143,18 @@ public class Register extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void buscar(){
+        Long id = Long.parseLong(JOptionPane.showInputDialog(this,"Ingrese el cliente que desea actualizar: ","Buscar",JOptionPane.INFORMATION_MESSAGE));
+        Arbol_B.NodoB cliente = EDDProyecto1_fase2.CLIENTES.Search(id);
+        
+        if(cliente!=null){
+            this.jTextField1.setText(cliente.c.name);
+            this.jTextField2.setText(cliente.c.password);
+            this.jTextField3.setText(cliente.c.dpi.toString());
+            this.jTextField3.setEditable(false);
+        }
+    
+    }
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

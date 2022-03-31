@@ -296,7 +296,8 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        new Actualizar(true).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -316,11 +317,8 @@ public class admin extends javax.swing.JFrame {
             while ((linea = br.readLine()) != null) {
                 file += "\n"+linea;
             }
-            System.out.println(file);
             JsonParser parser = new JsonParser();
             JsonArray clientes = parser.parse(file).getAsJsonArray();
-            
-            System.out.println("Cantidad de Clientes en la cola: " + clientes.size());
             
             for(int i=0;i<clientes.size();i++){
                 JsonObject c = clientes.get(i).getAsJsonObject();
@@ -329,11 +327,11 @@ public class admin extends javax.swing.JFrame {
                 Clientes nuevo = new Clientes(Ln,
                                               c.get("nombre_cliente").getAsString(),
                                               c.get("password").getAsString());
-                System.out.println(nuevo.getName());
                 EDDProyecto1_fase2.AgregarCliente(nuevo);
                 datosM.append(nuevo);
 
             }
+            JOptionPane.showMessageDialog(this, "Se han cargado los clientes correctamente");
             actualizarTabla();
             
         } catch (Exception ex) {
@@ -456,7 +454,6 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     public void actualizarTabla(){
-        System.out.println("TAMAÑO DE LA LISTA: "+datosM.size());
         if(datosM.size()!=0){
             Object datos [][] = new Object[datosM.size()][3];   
 

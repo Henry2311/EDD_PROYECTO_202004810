@@ -11,12 +11,10 @@ public class EDDProyecto1_fase2 {
                 new login().setVisible(true);
             }
         });
-        
     }
     
     public static void AgregarCliente(Clientes c){
         CLIENTES.insert(c.getDpi(), c);
-        
     }
 
 

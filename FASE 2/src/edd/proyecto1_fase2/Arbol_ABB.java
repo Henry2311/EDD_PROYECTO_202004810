@@ -51,7 +51,7 @@ public class Arbol_ABB {
             reporte1 = new FileWriter(nombre+"ABB.dot");
             pw = new PrintWriter(reporte1);
             pw.println("digraph G {");
-            pw.println("node[shape=\"circle\" style =filled]");
+            pw.println("node[shape=\"circle\" style = filled]");
             pw.println(contenido);
             pw.println("}");
         }catch(Exception e){
