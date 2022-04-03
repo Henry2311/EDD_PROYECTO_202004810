@@ -358,6 +358,7 @@ public class admin extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         EDDProyecto1_fase2.CLIENTES.Graficar("Clientes");
+        JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
         ImageIcon img = new ImageIcon("ClientesarbB.png");
         Image nuevo = img.getImage().getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon render = new ImageIcon(nuevo);
@@ -436,7 +437,7 @@ public class admin extends javax.swing.JFrame {
             e2.printStackTrace();
             }
             }
-            
+            JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
             ImageIcon img = new ImageIcon(aux.c.name+"Buscar.png");
             Image nuevo = img.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon render = new ImageIcon(nuevo);
@@ -447,6 +448,7 @@ public class admin extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         EDDProyecto1_fase2.CLIENTES.Enlistar("Clientes");
+        JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
         ImageIcon img = new ImageIcon("ClienteslistaC.png");
         Image nuevo = img.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon render = new ImageIcon(nuevo);

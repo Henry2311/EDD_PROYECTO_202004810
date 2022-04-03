@@ -99,42 +99,29 @@ public class Arbol_B {
                 return aux;
             }
             aux = this.primero;
-            if(this.hoja){
-                return null;
-            }else{
+            NodoB aux2 = null;
                 while(aux.siguiente != null){
-                    NodoB aux2 = aux;
                     if(aux.izquierda != null){
-                        aux = aux.izquierda.search(index);
+                        aux2 = aux.izquierda.search(index);
+                        if(aux2!=null){
+                            return aux2;
+                        }
                     }
-                    if(aux!=null){
-                        return aux;
-                    }
-                    aux = aux2;
-                    if(aux.derecha != null){
-                        aux = aux.derecha.search(index);
-                    }
-                    if(aux!=null){
-                        return aux;
-                    }
-                    aux = aux2;
                     aux = aux.siguiente;
                 }
-                NodoB aux2 = aux;
+                
                 if(aux.izquierda != null){
-                    aux = aux.izquierda.search(index);
+                    aux2 = aux.izquierda.search(index);
                 }
-                if(aux!=null){
-                    return aux;
+                if(aux2!=null){
+                    return aux2;
                 }
-                aux = aux2;
                 if(aux.derecha != null){
-                    aux = aux.derecha.search(index);
+                    aux2 = aux.derecha.search(index);
                 }
-                if(aux!=null){
-                    return aux;
+                if(aux2!=null){
+                    return aux2;
                 }
-            }
             return null;
         }
         

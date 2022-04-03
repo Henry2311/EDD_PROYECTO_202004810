@@ -122,7 +122,6 @@ public class Arbol_ABB {
         return nodos;
     }
      
-
     public String postordenL(Nodo raiz,String nodos,int contador) {
         if (raiz != null && contador > 0) {
             contador--;
@@ -149,11 +148,15 @@ public class Arbol_ABB {
     }
     
     public int Contar_Nodos(Nodo raiz, int contador){
-        if (raiz.izq != null) {
+        if(raiz!=null){
+            if (raiz.izq != null) {
             contador = Contar_Nodos(raiz.izq,contador+1);
-        }
-        if(raiz.der !=null){
-            contador = Contar_Nodos(raiz.der,contador+1);
+            }
+            if(raiz.der !=null){
+                contador = Contar_Nodos(raiz.der,contador+1);
+            }
+        }else{
+            return 0;
         }
         return contador;
     }

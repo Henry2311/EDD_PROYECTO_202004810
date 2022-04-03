@@ -379,9 +379,9 @@ public class cliente extends javax.swing.JFrame {
                         this.c.top.append(top_n);
 
                         this.jComboBox2.addItem("IMG"+id_imagen);
-                        imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
-                        imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
-                        imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
+                        imagen.Graphviz(x, y, this.c.getDpi()+"IMG"+id_imagen);
+                        imagen.imagen_png(x, y, this.c.getDpi()+"IMG"+id_imagen);
+                        imagen nuevo = new imagen(id_imagen,this.c.getDpi()+"IMG"+id_imagen+".png",arb);
                         this.c.avl.add(nuevo.id,nuevo);
                         JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
                     }else{
@@ -431,9 +431,9 @@ public class cliente extends javax.swing.JFrame {
                         this.c.top.append(top_n);
 
                         this.jComboBox2.addItem("IMG"+id_imagen);
-                        imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
-                        imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
-                        imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
+                        imagen.Graphviz(x, y, this.c.getDpi()+"IMG"+id_imagen);
+                        imagen.imagen_png(x, y, this.c.getDpi()+"IMG"+id_imagen);
+                        imagen nuevo = new imagen(id_imagen,this.c.getDpi()+"IMG"+id_imagen+".png",arb);
                         this.c.avl.add(nuevo.id,nuevo);
                         JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
                     }else{
@@ -483,9 +483,9 @@ public class cliente extends javax.swing.JFrame {
                         this.c.top.append(top_n);
 
                         this.jComboBox2.addItem("IMG"+id_imagen);
-                        imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
-                        imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
-                        imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
+                        imagen.Graphviz(x, y, this.c.getDpi()+"IMG"+id_imagen);
+                        imagen.imagen_png(x, y, this.c.getDpi()+"IMG"+id_imagen);
+                        imagen nuevo = new imagen(id_imagen,this.c.getDpi()+"IMG"+id_imagen+".png",arb);
                         this.c.avl.add(nuevo.id,nuevo);
                         JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
                     }else{
@@ -538,9 +538,9 @@ public class cliente extends javax.swing.JFrame {
                             this.c.top.append(top_n);
 
                             this.jComboBox2.addItem("IMG"+id_imagen);
-                            imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
-                            imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
-                            imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
+                            imagen.Graphviz(x, y, this.c.getDpi()+"IMG"+id_imagen);
+                            imagen.imagen_png(x, y, this.c.getDpi()+"IMG"+id_imagen);
+                            imagen nuevo = new imagen(id_imagen,this.c.getDpi()+"IMG"+id_imagen+".png",arb);
                             this.c.avl.add(nuevo.id,nuevo);
                             JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
                         }else{
@@ -590,9 +590,9 @@ public class cliente extends javax.swing.JFrame {
                         this.c.top.append(top_n);
 
                         this.jComboBox2.addItem("IMG"+id_imagen);
-                        imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
-                        imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
-                        imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
+                        imagen.Graphviz(x, y, this.c.getDpi()+"IMG"+id_imagen);
+                        imagen.imagen_png(x, y, this.c.getDpi()+"IMG"+id_imagen);
+                        imagen nuevo = new imagen(id_imagen,this.c.getDpi()+"IMG"+id_imagen+".png",arb);
                         this.c.avl.add(nuevo.id,nuevo);
                         JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
                     }else{
@@ -720,9 +720,9 @@ public class cliente extends javax.swing.JFrame {
                 this.c.top.append(top_n);
                 
                 this.jComboBox2.addItem("IMG"+id_imagen);
-                imagen.Graphviz(x, y, this.c.getName()+"IMG"+id_imagen);
-                imagen.imagen_png(x, y, this.c.getName()+"IMG"+id_imagen);
-                imagen nuevo = new imagen(id_imagen,this.c.getName()+"IMG"+id_imagen+".png",arb);
+                imagen.Graphviz(x, y, this.c.getDpi()+"IMG"+id_imagen);
+                imagen.imagen_png(x, y, this.c.getDpi()+"IMG"+id_imagen);
+                imagen nuevo = new imagen(id_imagen,this.c.getDpi()+"IMG"+id_imagen+".png",arb);
                 this.c.avl.add(nuevo.id,nuevo);
             }
             JOptionPane.showMessageDialog(this, "Se han generado las imagenes correctamente");
@@ -740,12 +740,12 @@ public class cliente extends javax.swing.JFrame {
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         String option = (String) this.jComboBox2.getSelectedItem();
         if(!option.equals("--")){
-            ImageIcon img = new ImageIcon(this.c.getName()+option+".png");
+            ImageIcon img = new ImageIcon(this.c.getDpi()+option+".png");
             Image nuevo = img.getImage().getScaledInstance(jLabel6.getWidth(), jLabel6.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon render = new ImageIcon(nuevo);
             this.jLabel6.setIcon(render);
             
-            ImageIcon img2 = new ImageIcon(this.c.getName()+option+"HD.png");
+            ImageIcon img2 = new ImageIcon(this.c.getDpi()+option+"HD.png");
             Image nuevo2 = img2.getImage().getScaledInstance(jLabel12.getWidth(), jLabel12.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon render2 = new ImageIcon(nuevo2);
             this.jLabel12.setIcon(render2);
@@ -760,7 +760,7 @@ public class cliente extends javax.swing.JFrame {
                 {
                     this.c.Grafo_Albums();
                     JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
-                    ImageIcon img = new ImageIcon(this.c.getName()+"Albums.png");
+                    ImageIcon img = new ImageIcon(this.c.getDpi()+"Albums.png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
                     this.jLabel11.setIcon(render);
@@ -768,9 +768,9 @@ public class cliente extends javax.swing.JFrame {
                 }
             case "Arbol de capas":
                 {
-                    this.c.abb.Graficar(this.c.name);
+                    this.c.abb.Graficar(this.c.dpi.toString());
                     JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
-                    ImageIcon img = new ImageIcon(this.c.getName()+"ABB.png");
+                    ImageIcon img = new ImageIcon(this.c.getDpi()+"ABB.png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
                     this.jLabel11.setIcon(render);
@@ -778,9 +778,9 @@ public class cliente extends javax.swing.JFrame {
                 }
             case "Arbol de Imagenes":
                 {
-                    this.c.avl.Graficar(this.c.name);
+                    this.c.avl.Graficar(this.c.dpi.toString());
                     JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
-                    ImageIcon img = new ImageIcon(this.c.getName()+"AVL.png");
+                    ImageIcon img = new ImageIcon(this.c.getDpi()+"AVL.png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
                     this.jLabel11.setIcon(render);
@@ -790,9 +790,9 @@ public class cliente extends javax.swing.JFrame {
                 {
                     int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese la imagen a buscar: ","Buscar",JOptionPane.INFORMATION_MESSAGE));
                     Arbol_AVL.Nodo aux = this.c.avl.search(id);
-                    aux.img.arb.Graficar(this.c.name+"Capa"+aux.img.id);
+                    aux.img.arb.Graficar(this.c.dpi+"Capa"+aux.img.id);
                     JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
-                    ImageIcon img = new ImageIcon(this.c.name+"Capa"+aux.img.id+"ABB.png");
+                    ImageIcon img = new ImageIcon(this.c.dpi+"Capa"+aux.img.id+"ABB.png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
                     this.jLabel11.setIcon(render);
@@ -803,9 +803,9 @@ public class cliente extends javax.swing.JFrame {
                     int id = Integer.parseInt(JOptionPane.showInputDialog(this,"Ingrese la capa a buscar: ","Buscar",JOptionPane.INFORMATION_MESSAGE));
                     Arbol_ABB.Nodo aux = this.c.abb.search(id);
                     capa tmp = aux.id;
-                    tmp.pixeles.Graphviz(tmp.x, tmp.y, this.c.name+"Capa"+id+"Matriz");
+                    tmp.pixeles.Graphviz(tmp.x, tmp.y, this.c.dpi+"Capa"+id+"Matriz");
                     JOptionPane.showMessageDialog(this, "Se ha generado la imagen");
-                    ImageIcon img = new ImageIcon(this.c.name+"Capa"+id+"Matriz.png");
+                    ImageIcon img = new ImageIcon(this.c.dpi+"Capa"+id+"Matriz.png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
                     this.jLabel11.setIcon(render);
@@ -878,7 +878,7 @@ public class cliente extends javax.swing.JFrame {
                 {
                     this.c.Top5();
                     JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
-                    ImageIcon img = new ImageIcon("Top"+this.c.name+".png");
+                    ImageIcon img = new ImageIcon("Top"+this.c.dpi+".png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
                     this.jLabel11.setIcon(render);
@@ -888,7 +888,7 @@ public class cliente extends javax.swing.JFrame {
                 {
                     this.c.hojas();
                     JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
-                    ImageIcon img = new ImageIcon("Hojas"+this.c.name+".png");
+                    ImageIcon img = new ImageIcon("Hojas"+this.c.dpi+".png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
                     this.jLabel11.setIcon(render);
@@ -898,7 +898,7 @@ public class cliente extends javax.swing.JFrame {
                 {
                     this.c.Profundidad();
                     JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
-                    ImageIcon img = new ImageIcon("Profundidad"+this.c.name+".png");
+                    ImageIcon img = new ImageIcon("Profundidad"+this.c.dpi+".png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
                     this.jLabel11.setIcon(render);
@@ -908,7 +908,7 @@ public class cliente extends javax.swing.JFrame {
                 {
                     this.c.Recorridos();
                     JOptionPane.showMessageDialog(this, "Se ha generado el reporte");
-                    ImageIcon img = new ImageIcon("Recorridos"+this.c.name+".png");
+                    ImageIcon img = new ImageIcon("Recorridos"+this.c.dpi+".png");
                     Image nuevo = img.getImage().getScaledInstance(jLabel11.getWidth(), jLabel11.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon render = new ImageIcon(nuevo);
                     this.jLabel11.setIcon(render);
@@ -927,6 +927,29 @@ public class cliente extends javax.swing.JFrame {
             this.c.avl.eliminar(id);
             int comboid = this.jComboBox2.getSelectedIndex();
             this.jComboBox2.removeItemAt(comboid);
+            
+            Lista.Nodo aux = this.c.album.first;
+            while(aux!=null){
+                album data = (album) aux.data;
+                Lista.Nodo aux2 = data.imagenes.first;
+                while(aux2 != null){
+                    if(aux2.data.equals("Imagen "+id)){
+                        data.imagenes.delete("Imagen "+id);
+                        break;
+                    }
+                    aux2 = aux2.next;
+                }
+                aux = aux.next;
+            }
+            Lista.Nodo auxt = this.c.top.first;
+            while(auxt!=null){
+                top_img data = (top_img) auxt.data;
+                if(data.nombre.equals("IMG"+id)){
+                    this.c.top.delete("IMG"+id);
+                    break;
+                }
+                auxt = auxt.next;
+            }
             JOptionPane.showMessageDialog(this, "Se ha eliminado la imagen");
         }
     }//GEN-LAST:event_jButton4ActionPerformed

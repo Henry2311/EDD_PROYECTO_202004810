@@ -79,7 +79,7 @@ public class Clientes {
         FileWriter reporte1 = null;
         PrintWriter pw;
         try{
-            reporte1 = new FileWriter(this.name+"Albums.dot");
+            reporte1 = new FileWriter(this.dpi+"Albums.dot");
             pw = new PrintWriter(reporte1);
             pw.println("digraph G {");
             pw.println("node[shape=\"box\" style=filled]");
@@ -143,7 +143,7 @@ public class Clientes {
             try{       
                 if(null != reporte1){
                     reporte1.close();
-                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o",this.name+"Albums.png",this.name+"Albums.dot");
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o",this.dpi+"Albums.png",this.dpi+"Albums.dot");
                     buil.redirectErrorStream(true);
                     buil.start();           
                 }
@@ -184,7 +184,7 @@ public class Clientes {
         FileWriter reporte1 = null;
         PrintWriter pw = null;
         try{
-            reporte1 = new FileWriter("Top"+this.name+".dot");
+            reporte1 = new FileWriter("Top"+this.dpi+".dot");
             pw = new PrintWriter(reporte1);
 
             pw.println("digraph G {");
@@ -218,7 +218,7 @@ public class Clientes {
             try{       
                 if(null != reporte1){
                     reporte1.close();
-                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Top"+this.name+".png","Top"+this.name+".dot");
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Top"+this.dpi+".png","Top"+this.dpi+".dot");
                     buil.redirectErrorStream(true);
                     buil.start();           
                 }
@@ -233,7 +233,7 @@ public class Clientes {
         FileWriter reporte1 = null;
         PrintWriter pw = null;
         try{
-            reporte1 = new FileWriter("Hojas"+this.name+".dot");
+            reporte1 = new FileWriter("Hojas"+this.dpi+".dot");
             pw = new PrintWriter(reporte1);
 
             pw.println("digraph G {");
@@ -256,7 +256,7 @@ public class Clientes {
             try{       
                 if(null != reporte1){
                     reporte1.close();
-                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Hojas"+this.name+".png","Hojas"+this.name+".dot");
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Hojas"+this.dpi+".png","Hojas"+this.dpi+".dot");
                     buil.redirectErrorStream(true);
                     buil.start();           
                 }
@@ -284,7 +284,7 @@ public class Clientes {
         FileWriter reporte1 = null;
         PrintWriter pw = null;
         try{
-            reporte1 = new FileWriter("Recorridos"+this.name+".dot");
+            reporte1 = new FileWriter("Recorridos"+this.dpi+".dot");
             pw = new PrintWriter(reporte1);
             
             String contenido = "";
@@ -318,7 +318,7 @@ public class Clientes {
             try{       
                 if(null != reporte1){
                     reporte1.close();
-                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Recorridos"+this.name+".png","Recorridos"+this.name+".dot");
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Recorridos"+this.dpi+".png","Recorridos"+this.dpi+".dot");
                     buil.redirectErrorStream(true);
                     buil.start();           
                 }
@@ -333,7 +333,7 @@ public class Clientes {
         FileWriter reporte1 = null;
         PrintWriter pw = null;
         try{
-            reporte1 = new FileWriter("Profundidad"+this.name+".dot");
+            reporte1 = new FileWriter("Profundidad"+this.dpi+".dot");
             pw = new PrintWriter(reporte1);
             
             String contenido = this.abb.profundidad(this.abb.root, 0);
@@ -349,7 +349,7 @@ public class Clientes {
             try{       
                 if(null != reporte1){
                     reporte1.close();
-                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Profundidad"+this.name+".png","Profundidad"+this.name+".dot");
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","Profundidad"+this.dpi+".png","Profundidad"+this.dpi+".dot");
                     buil.redirectErrorStream(true);
                     buil.start();           
                 }

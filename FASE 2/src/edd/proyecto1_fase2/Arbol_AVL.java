@@ -181,6 +181,8 @@ public class Arbol_AVL {
             if(raiz.right !=null){
                 contador = Contar_Nodos(raiz.right,contador+1);
             }
+        }else{
+            return 0;
         }
         return contador;
     }
@@ -256,6 +258,7 @@ public class Arbol_AVL {
         
         return current;
     }
+    
     private int getFactorEquilibrio(Nodo nodoActual) {
         if (nodoActual == null) {
             return 0;

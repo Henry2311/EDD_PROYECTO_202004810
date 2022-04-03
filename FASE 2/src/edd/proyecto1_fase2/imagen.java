@@ -1,4 +1,4 @@
-
+    
 package edd.proyecto1_fase2;
 
 public class imagen {
