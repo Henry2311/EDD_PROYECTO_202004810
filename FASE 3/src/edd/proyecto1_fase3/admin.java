@@ -49,6 +49,8 @@ public class admin extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jButton6 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -212,25 +214,43 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
+        jButton10.setText("Cargar lugares");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
+        jButton11.setText("Cargar rutas");
+        jButton11.setToolTipText("");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(376, 376, 376)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(376, 376, 376)
+                .addComponent(jLabel4)
+                .addContainerGap(349, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 37, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 977, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +262,9 @@ public class admin extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6)
-                    .addComponent(jButton9))
+                    .addComponent(jButton9)
+                    .addComponent(jButton10)
+                    .addComponent(jButton11))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
@@ -329,8 +351,7 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        new Actualizar(true).setVisible(true);
-        this.dispose();
+        JOptionPane.showMessageDialog(this, "Añadir actualizar");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -456,6 +477,96 @@ public class admin extends javax.swing.JFrame {
         EDDProyecto1_fase3.MENSAJEROS.mostrar();
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        FileReader fr = null;
+        try {
+            // TODO add your handling code here:
+            String file="";
+            File archivo=null;
+            JFileChooser fc = new JFileChooser();
+            int op = fc.showOpenDialog(this);
+            if (op == JFileChooser.APPROVE_OPTION) {
+                archivo = fc.getSelectedFile();
+            }
+            fr = new FileReader(archivo);
+            BufferedReader br = new BufferedReader(fr);
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                file += "\n"+linea;
+            }
+            JsonParser parser = new JsonParser();
+            JsonObject Lugares = parser.parse(file).getAsJsonObject();
+            System.out.println(Lugares);
+            JsonArray lugar = Lugares.get("Lugares").getAsJsonArray();
+            for(int i=0;i<lugar.size();i++){
+                JsonObject c = lugar.get(i).getAsJsonObject();
+                
+                Lugar nuevo = new Lugar(c.get("id").getAsInt(),
+                                        c.get("departamento").getAsString(),
+                                        c.get("nombre").getAsString(),
+                                        c.get("sn_sucursal").getAsString());
+                
+                EDDProyecto1_fase3.AgregarLugar(nuevo);
+            }
+            JOptionPane.showMessageDialog(this, "Se han cargado los lugares correctamente");
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                fr.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        FileReader fr = null;
+        try {
+            if(EDDProyecto1_fase3.LUGARES.size() > 0){
+                // TODO add your handling code here:
+                String file="";
+                File archivo=null;
+                JFileChooser fc = new JFileChooser();
+                int op = fc.showOpenDialog(this);
+                if (op == JFileChooser.APPROVE_OPTION) {
+                    archivo = fc.getSelectedFile();
+                }
+                fr = new FileReader(archivo);
+                BufferedReader br = new BufferedReader(fr);
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    file += "\n"+linea;
+                }
+                JsonParser parser = new JsonParser();
+                JsonObject Rutas = parser.parse(file).getAsJsonObject();
+                System.out.println(Rutas);
+                JsonArray ruta = Rutas.get("Grafo").getAsJsonArray();
+                for(int i=0;i<ruta.size();i++){
+                    JsonObject c = ruta.get(i).getAsJsonObject();
+                    int inicio = c.get("inicio").getAsInt();
+                    vecino nuevo = new vecino(c.get("peso").getAsInt(),
+                                            c.get("final").getAsInt());
+
+                    EDDProyecto1_fase3.AgregarRuta(inicio,nuevo);
+                }
+                JOptionPane.showMessageDialog(this, "Se han cargado las rutas correctamente");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                fr.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        EDDProyecto1_fase3.LUGARES.graficar();
+        EDDProyecto1_fase3.LUGARES.grafo_nodirigido();
+        EDDProyecto1_fase3.mostrar_lugar();
+    }//GEN-LAST:event_jButton11ActionPerformed
+
     public void actualizarTabla(){
         if(datosM.size()!=0){
             Object datos [][] = new Object[datosM.size()][7];   
@@ -514,6 +625,8 @@ public class admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

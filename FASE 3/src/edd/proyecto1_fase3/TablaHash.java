@@ -21,6 +21,10 @@ public class TablaHash {
         this.ind_p = 0;
     }
     
+    public Mensajero [] getTabla(){
+        return this.arr;
+    }
+    
     public int functionhash(Long Key){
         int hash;
         hash = (int) (Key%this.M);
@@ -38,22 +42,7 @@ public class TablaHash {
     
         return new_hash;
     }
-    /* if ((size + 1) < (maxSize * 0.75)) {
-            while (arregloHash[pos] != null) {
-                pos = funcionHash2(obj.getKey(), i);
-                i++;
-                System.out.println(pos);
-                while (pos >= maxSize) {
-                    pos = funcionHash2(obj.getKey(), i);
-                    System.out.println(pos);
-                    i++;
-                }
-                
-            }
-            //Si llega hasta aqui es porque encontro un espacio donde insertarse
-            arregloHash[pos] = obj;
-            size++;
-        }*/
+    
     public void add(Mensajero elem){
         int pos = this.functionhash(elem.getDpi());
         
@@ -157,7 +146,7 @@ public class TablaHash {
         for (int i = 0; i < this.M; i++) {
             if (this.arr[i] != null) {
                 if(this.arr[i] != null) {
-                    System.out.println(i+" "+this.arr[i]+ " |");
+                    System.out.println(i+" "+this.arr[i].nombre+" | "+this.arr[i].dpi+ " |");
                 }
             } else {
                 System.out.println(" {} |");
