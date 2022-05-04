@@ -1,240 +1,150 @@
 
 package edd.proyecto1_fase3;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Grafo {
     
-    public class Vertice{
-    
-        String id;
-        Lista vecinos;
-        boolean visitado;
-        Vertice padre;
-        float costo;
-
-        public Vertice(String id) {
-            this.id = id;
-            this.vecinos = new Lista();
-            this.visitado = false;
-            this.padre = null;
-            this.costo = Float.POSITIVE_INFINITY;
+   
+    private int n;
+    private int numberOfEdges;
+    private double[] distance;
+    private String[] path;
+    private ArrayList<String> Vertax;
+    private static int[][] edges;
+    private boolean[] isVisited;
+    public  Grafo(int n){
+        this.n = n;
+        numberOfEdges=0;
+        Vertax = new ArrayList<>(n);
+        edges  = new int[n][n];
+        isVisited = new boolean[n+1];
+        distance = new double[n];
+        for (int i = 0; i <n ; i++) {
+            distance[i] = Double.POSITIVE_INFINITY;
         }
-        
-        public void añadirvecino(vecino v){
-            if(!exist(v)){
-                this.vecinos.append(v);
+
+        path = new String[n];
+        for (int i = 0; i <n ; i++) {
+            path[i] = "";
+        }
+    }
+
+    // Imprimir lista de adyacencia
+    public static void showEdges(){
+        for (int[] edse: edges
+        ) {
+            System.out.println(Arrays.toString(edse));
+        }
+
+    }
+    // Obtener el número de vértices
+    public  int GetSizeOfGraph(ArrayList<String> Vertax){
+        return Vertax.size();
+    }
+    // Agregar vértice
+    public  void addVertax(String s){
+        Vertax.add(s);
+    }
+    // Obtiene el primer vértice adyacente del vértice especificado
+    public int getFirstCO(int index){
+        for (int i = 0; i <Vertax.size() ; i++) {
+            if (edges[index][i]>0) return i;
+        }
+        return n;
+    }
+    // Obtiene los vértices adyacentes secuenciales del vértice especificado
+    public int getNextCO(int index,int firstCO){
+        for (int i =firstCO+1 ; i <Vertax.size() ; i++) {
+            if (edges[index][i]>0) return i;
+        }
+        return n;
+    }
+    // Agregar borde
+    public  void addEdges(int e1,int e2 , int weight){
+        edges[e1][e2] = weight;
+        //edges[e2][e1] = weight;
+        numberOfEdges++;
+    }
+    // Obtener el número de aristas
+    public int getNumberOfEdges(){
+        return numberOfEdges;
+    }
+
+    public void dijkStra(int index ){
+
+        // CO son las coordenadas necesarias para la iteración, headIndex es el vértice inicial de cada DIJKSTRA
+
+
+        int CO;
+        int headIndex = index;
+        //
+        // Establece la distancia desde el punto inicial al punto inicial, naturalmente 0
+        distance[index]=0;
+
+
+        // Luego haz lo siguiente para cada vértice
+        // 1. Establece este vértice en conocido, no te preocupes por la distancia y la ruta de este punto, porque ha sido diseñado antes
+        // 2. Encuentra cada vértice adyacente de este vértice. Para un vértice desconocido, compare la distancia alcanzada a lo largo de este vértice con su distancia original, si es menor que la distancia original, actualice la distancia y actualice la ruta
+        // 3. Después de establecer este vértice, use la función indexGet para encontrar el vértice con la distancia más pequeña entre los vértices desconocidos actuales, y utilícelo como el siguiente vértice para realizar el paso 2
+
+        while (!isVisited[headIndex]){
+
+            // CO es la primera CO que no ha sido visitada
+            CO = getFirstCO(headIndex);
+            while(isVisited[CO]){
+                CO = getNextCO(headIndex,CO);
             }
-        }
-        
-        public boolean exist(vecino ve){
-            if(this.vecinos.size()>0){
-               Lista.Nodo aux = this.vecinos.first;
-               while(aux!=null){
-                   vecino data = (vecino) aux.data;
-                   if(data.v.id.equals(ve.v.id)){
-                       return true;
-                   }
-                   aux = aux.next;
-               }
+
+            // Si el vértice headIndex no tiene vértices adyacentes que no hayan sido visitados, la coordenada del vértice se obtiene como n, lo que indica que es el último nodo desconocido, y solo necesita establecerse como conocido
+            if (CO==n) {
+                isVisited[headIndex]=true;
+                //System.out.println("Coordinate not found ");
             }
-            return false;
-        }
-    
-    }
-    
-    public class vecino{
-        Vertice v;
-        int peso;
+            // Ejecuta el paso 2 para todos los vértices adyacentes a través de un bucle
+            else {
+                while (!isVisited[CO]&&CO<n) {
+                    isVisited[headIndex]=true;
+                    double currentDis = distance[headIndex]+edges[headIndex][CO];
+                    if (currentDis<distance[CO]) {
+                        distance[CO] = currentDis;
 
-        public vecino(Vertice v, int peso) {
-            this.v = v;
-            this.peso = peso;
-        }
-    }
-
-    public class nodo{
-        String id;
-        Vertice v;
-
-        public nodo(String id, Vertice v) {
-            this.id = id;
-            this.v = v;
-        }
-    }
-
-    
-    Lista vertices;
-
-    public Grafo() {
-        this.vertices = new Lista();
-    }
-    
-    public void agregarvertice(String id){
-        Vertice nuevo = new Vertice(id);
-        nodo node = new nodo(id,nuevo);
-        if(!exist(node)){
-            this.vertices.append(node);
-        }
-    }
-    
-    public void agregararista(String auxa, String auxb, int peso){
-        Vertice va = new Vertice(auxa);
-        nodo a = new nodo(auxa,va);
-        Vertice vb = new Vertice(auxb);
-        nodo b = new nodo(auxb,vb);
-        
-        if(exist(a) && exist(b)){
-            vecino vecinoA = new vecino(a.v,peso);
-            vecino vecinoB = new vecino(b.v,peso);
-            nodo aux = getNodo(a.id);
-            aux.v.añadirvecino(vecinoB);
-            aux = getNodo(b.id);
-            aux.v.añadirvecino(vecinoA);
-        }
-    }
-    
-    public void camino(String inicio, String fin){
-        String camino = "";
-        
-        Vertice actual = getNodo(fin).v; 
-        while(actual!=null){
-            camino+= actual.id+",";
-            actual = actual.padre;
-        }
-        
-        System.out.println(camino);
-    }
-    
-    public Vertice minimo(Lista noVisitados){
-        
-        if(noVisitados.size() > 0){
-            Vertice novisit = (Vertice) noVisitados.first.data;
-            String primero = novisit.id;
-            //System.out.println("primero "+primero);
-            nodo v = getNodo(primero);
-            Vertice x=v.v;
-            //System.out.println("vertice "+x.id);
-            float m = v.v.costo;
-            
-            Lista.Nodo aux = noVisitados.first;
-            while(aux!=null){
-                Vertice auxV = (Vertice) aux.data;
-                
-                String indice = auxV.id;
-                nodo w = getNodo(indice);
-                if(m > w.v.costo){
-                    //System.out.println(v.v.id+"    "+w.v.id);
-                    //System.out.println(m+"   "+w.v.costo);
-                    m = w.v.costo;
-                    x = w.v;
-                }
-                aux = aux.next;
-            }
-            System.out.println(x.id);
-            return x;
-        }      
-        return null;
-    }
-    
-    public void dijkstra(String inicio){
-        if(exist(new nodo(inicio,new Vertice(inicio)))){
-            Vertice a = getNodo(inicio).v; 
-            a.costo = 0;
-            Vertice actual = a;
-            
-            Lista noVisitados = new Lista();
-            Lista.Nodo aux = this.vertices.first;
-            while(aux!=null){
-                nodo n = (nodo) aux.data;
-                Vertice v = n.v;
-                if(!v.id.equals(a.id)){
-                    v.costo = Float.POSITIVE_INFINITY;
-                }
-                v.padre = null;
-                noVisitados.append(v);
-                aux = aux.next;
-            }
-            
-            while(noVisitados.size() > 0){
-                Lista vecinos = actual.vecinos;
-                Lista.Nodo auxVecinos = vecinos.first;
-                while(auxVecinos!=null){
-                    vecino data = (vecino) auxVecinos.data;
-                    //System.out.println("actual "+actual.id+" vecino "+data.v.id);
-                    if(data.v.visitado == false){
-                        if((actual.costo+data.peso) < data.v.costo){
-                            data.v.costo = actual.costo+data.peso;
-                            data.v.padre = actual;
-                            setNodo(data.v);
-                        }
+                        path[CO] = path[headIndex]+" "+Vertax.get(headIndex);
                     }
-                    
-                    auxVecinos = auxVecinos.next;
+
+                    CO = getNextCO(headIndex, CO);
+
                 }
-                
-                actual.visitado = true;
-                noVisitados.remove(actual.id);
-                
-                System.out.println("ACTUAL "+actual.id);
-                actual = this.minimo(noVisitados);
             }
-            
+
+            headIndex = indexGet(distance,isVisited);
+
+
         }
-    
-    }
-    
-    public boolean exist(nodo n){
-        if(this.vertices.size()>0){
-            Lista.Nodo aux = this.vertices.first;
-            while(aux!=null){
-                nodo data = (nodo) aux.data;
-                if(data.id.equals(n.id)){
-                    return true;
-                }
-                aux = aux.next;
-            }
+        for (int i = 0; i <n ; i++) {
+            path[i] = path[i]+" "+Vertax.get(i);
         }
-        return false;
+        System.out.println("Iniciar nodo:"+Vertax.get(index));
+        for (int i = 0; i <n ; i++) {
+            System.out.println(Vertax.get(i)+"   "+distance[i]+"   "+path[i]);
+        }
+
+
     }
-    
-    public nodo getNodo(String n){
-        if(this.vertices.size()>0){
-            Lista.Nodo aux = this.vertices.first;
-            while(aux!=null){
-                nodo data = (nodo) aux.data;
-                if(data.id.equals(n)){
-                    return data;
+    // Devuelve el siguiente vértice requerido a través de la matriz de distancia y la matriz de acceso dadas
+    public int indexGet(double[] distance, boolean[] isVisited){
+        int j=0;
+        double mindis=Double.POSITIVE_INFINITY;
+        for (int i = 0; i < distance.length; i++) {
+            if (!isVisited[i]){
+                if(distance[i]<mindis){
+                    mindis=distance[i];
+                    j=i;
                 }
-                aux = aux.next;
             }
         }
-        return null;
-    }
-    
-    public void setNodo(Vertice v){
-        if(this.vertices.size()>0){
-            Lista.Nodo aux = this.vertices.first;
-            while(aux!=null){
-                nodo data = (nodo) aux.data;
-                if(data.id.equals(v.id)){
-                    data.v = v;
-                }
-                aux = aux.next;
-            }
-        }
-    
-    }
-    
-    
-    public void mostrarVertices(){
-        Lista.Nodo aux = this.vertices.first;
-        
-        while(aux!=null){
-            nodo data = (nodo) aux.data;
-            System.out.println(data.v.id+" costo: "+data.v.costo);
-            
-            aux = aux.next;
-        }
-        
+        return j;
     }
     
 }

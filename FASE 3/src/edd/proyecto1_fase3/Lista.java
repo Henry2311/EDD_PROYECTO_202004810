@@ -84,33 +84,7 @@ public class Lista {
             }
         }
     }
-    
-    public void remove(String id){
-    
-        if(first!=null){
-            Grafo.Vertice data = (Grafo.Vertice) first.data;
-            if(first==last && data.id.equals(id)){
-                first = last = null;
-            }else if(data.id.equals(id)){
-                first = first.next;
-            }else{
-                Nodo anterior, aux;
-                anterior = first;
-                aux = first.next;
-                while(aux!=null && !data.id.equals(id)){
-                    anterior = anterior.next;
-                    aux = aux.next;
-                }
-                if(aux !=null){
-                    anterior.next = aux.next;
-                    if(aux == last){
-                        last = anterior;
-                    }
-                }
-            }
-        }
-        this.size--;
-    }
+   
     
     public void graficar(){
     

@@ -9,11 +9,32 @@ public class EDDProyecto1_fase3 {
     static String grafo = "";
     
     public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new login().setVisible(true);
             }
-        });
+        });*/
+        
+        Grafo graph = new Grafo(6);
+        graph.addVertax("Guatemala");
+        graph.addVertax("Peten");
+        graph.addVertax("Zacapa");
+        graph.addVertax("Escuintla");
+        graph.addVertax("Alta Verapaz");
+        graph.addVertax("Izabal");
+
+        graph.addEdges(0,1,5);
+        graph.addEdges(0,2,6);
+        graph.addEdges(1,2,6);
+        graph.addEdges(1,3,3);
+        graph.addEdges(1,4,5);
+        graph.addEdges(2,4,2);
+        graph.addEdges(4,3,3);
+        graph.addEdges(3,5,4);
+        graph.addEdges(4,5,1);
+        
+        graph.showEdges();
+        graph.dijkStra(0);
         
        
     }
