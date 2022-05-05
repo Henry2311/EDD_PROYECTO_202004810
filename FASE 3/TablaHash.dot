@@ -1,7 +1,0 @@
-digraph G {
-node [shape="box"]
-label = "Tabla Hash"
-a0 [label=< 
- <TABLE>
-<TR> <TD>indice</TD><TD>Valor</TD></TR><TR> <TD>0</TD><TD>9856374830101</TD></TR></TABLE>>];
-}
