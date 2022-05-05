@@ -85,6 +85,71 @@ public class Lista {
         }
     }
    
+    public int getId_lugar(String nombre){
+        int id = 0;
+        Nodo aux = this.first;
+        while(aux!=null){
+            Lugar data = (Lugar) aux.data;
+            if(data.nombre.equals(nombre)){
+                id = data.id;
+                break;
+            }
+            aux = aux.next;
+        }
+        return id;
+    }
+    
+    public void recorrido(String nombre){
+        FileWriter reporte = null;
+        PrintWriter pw = null;
+        try{
+            reporte = new FileWriter(nombre+"Recorrido.dot");
+            pw = new PrintWriter(reporte);
+
+            pw.println("digraph G {");
+            pw.println("node [shape=\"circle\"]");
+            pw.println("rankdir = \"LR\"");
+            pw.println("label = \"Ruta optima\"");
+            
+            String datos = "";
+            
+            Nodo aux = this.first;
+            int i = 0;
+            while(aux!=null){
+                String data = (String) aux.data;
+                datos+="nodo"+i+"[label = \""+data+"\"];\n";
+                i++;
+                aux = aux.next;
+            }
+            
+            aux = this.first;
+            i = 0;
+            while(aux.next!=null){
+                datos+="nodo"+i+" -> nodo"+(i+1)+";\n";
+                i++;
+                aux = aux.next;
+            }
+            
+            pw.println(datos);
+            pw.println("}");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{       
+                if(null != reporte){
+                    reporte.close();
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o",nombre+"Recorrido.png",nombre+"Recorrido.dot");
+                    buil.redirectErrorStream(true);
+                    buil.start();           
+                }
+            }catch(Exception e2){
+            e2.printStackTrace();
+            }
+        }
+    
+    }
+    
     
     public void graficar(){
     
@@ -103,7 +168,7 @@ public class Lista {
             Nodo aux = this.first;
             while(aux!=null){
                 Lugar data = (Lugar) aux.data;
-                datos+="nodo"+data.id+"[label = \""+data.departamento+"\"];\n";
+                datos+="nodo"+data.id+"[label = \""+data.nombre+"\"];\n";
                 aux = aux.next;
             }
             aux = this.first;
@@ -120,7 +185,7 @@ public class Lista {
                 Nodo aux2 = data.Rutas.first;
                 while(aux2 != null){
                     vecino data2 = (vecino) aux2.data;
-                    datos+="nodo"+data.id+data2.id+"[label = \""+this.getMunicipio(data2.id)+"\"];\n";
+                    datos+="nodo"+data.id+data2.id+"[label = \""+this.getNombre(data2.id)+"\"];\n";
                     aux2 = aux2.next;
                 }
                 aux = aux.next;
@@ -182,7 +247,7 @@ public class Lista {
             Nodo aux = this.first;
             while(aux!=null){
                 Lugar data = (Lugar) aux.data;
-                datos+="nodo"+data.id+"[label = \""+data.departamento+"\"];\n";
+                datos+="nodo"+data.id+"[label = \""+data.nombre+"\"];\n";
                 aux = aux.next;
             }
             

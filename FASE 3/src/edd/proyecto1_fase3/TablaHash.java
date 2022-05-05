@@ -95,6 +95,14 @@ public class TablaHash {
             } 
         }
         return null;
+    }  
+     
+    public Mensajero getMensajero(int i){
+        return this.arr[i];
+    }
+    
+    public void añadirPedido(int i,int p){
+        this.arr[i].pedidos += p;
     }
     
     public void graph(){

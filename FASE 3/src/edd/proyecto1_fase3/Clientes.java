@@ -5,7 +5,7 @@ package edd.proyecto1_fase3;
 public class Clientes {
     
     Long dpi;
-    int id_municipio;
+    int id_municipio,pedidos;
     String name, password,user,correo,telefono,direccion;
 
     public Clientes(Long dpi, int id_municipio, String name, String password, String user, String correo, String telefono, String direccion) {
@@ -17,12 +17,17 @@ public class Clientes {
         this.correo = correo;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.pedidos = 0;
     }
 
     public Long getDpi() {
         return dpi;
     }
 
+    public void addPedido(int i){
+        this.pedidos += i;
+    }
+    
     public void setDpi(Long dpi) {
         this.dpi = dpi;
     }

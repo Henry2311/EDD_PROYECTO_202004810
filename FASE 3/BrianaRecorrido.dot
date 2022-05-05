@@ -1,0 +1,12 @@
+digraph G {
+node [shape="circle"]
+label = "Ruta optima"
+nodo0[label = "Fraijanes"];
+nodo1[label = "Amatitlan"];
+nodo2[label = "SanMiguelPetapa"];
+nodo3[label = "Ciudad"];
+nodo0 -> nodo1;
+nodo1 -> nodo2;
+nodo2 -> nodo3;
+
+}

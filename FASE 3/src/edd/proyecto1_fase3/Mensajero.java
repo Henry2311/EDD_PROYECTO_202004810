@@ -4,7 +4,8 @@ package edd.proyecto1_fase3;
 public class Mensajero {
     Long dpi;
     String nombre,apellido,licencia,genero,telefono,direccion;
-
+    int pedidos;
+    
     public Mensajero(Long dpi, String nombre, String apellido, String licencia, String genero, String telefono, String direccion) {
         this.dpi = dpi;
         this.nombre = nombre;
@@ -13,6 +14,15 @@ public class Mensajero {
         this.genero = genero;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.pedidos = 0;
+    }
+
+    public int getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(int pedidos) {
+        this.pedidos+= pedidos;
     }
 
     public Long getDpi() {

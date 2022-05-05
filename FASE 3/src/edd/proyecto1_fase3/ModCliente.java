@@ -1,7 +1,8 @@
 
 package edd.proyecto1_fase3;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class ModCliente extends javax.swing.JFrame {
 
@@ -29,13 +30,17 @@ public class ModCliente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Modulo Cliente: ");
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Modulo Cliente: ");
 
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("Sucursal");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--" }));
@@ -53,25 +58,30 @@ public class ModCliente extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel6.setText("Fecha: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                         .addComponent(jTextField1)
                         .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(501, Short.MAX_VALUE))
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(249, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,105 +95,74 @@ public class ModCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Grafo recorrido = new Grafo(EDDProyecto1_fase3.LUGARES.size());
         
-        ruta_optimizada(1,6);
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-    
-    public void ruta_optimizada(int inicio, int fin){
-        Lista lugares = EDDProyecto1_fase3.LUGARES;
-        ArrayList <vecino> ruta = new ArrayList<>();
-        Lista adyacente = new Lista();
-        
-        int peso = 0;
-        Lista.Nodo aux = lugares.first;
+        Lista.Nodo aux = EDDProyecto1_fase3.LUGARES.first;
         while(aux!=null){
             Lugar data = (Lugar) aux.data;
-            if(data.id == inicio){
-                adyacente = data.Rutas;
-                break;
-            }
+            recorrido.añadirVertices(data.nombre);
             aux = aux.next;
         }
         
-        vecino v1 = new vecino(peso,inicio,adyacente);
-        boolean exit = false;
-        while(!exit){
-            Lista.Nodo ady = adyacente.first;
-            
-            aux = lugares.first;
-            while(aux!=null){
-                Lugar data = (Lugar) aux.data;
-                vecino temp = (vecino) ady.data; //produccion
-                if(data.id == temp.id){
-                    System.out.println("ENTRE primer if");
-                    if(!data.visitado){
-                        System.out.println("entre");
-                        adyacente = v1.ady;
-                        vecino nuevo  = new vecino(temp.peso+v1.peso,temp.id,adyacente);
-                        ruta.add(nuevo);//lista temporal
-                        data.visitado = true;
-                        v1.anterior = temp;
-                        break;
-                    }
-                }
-                aux = aux.next;
-            }
-            
-            //ordenar
-            for (int i = 0; i < ruta.size(); i++) {
-                for (int j = 0; j < ruta.size()- 1; j++) {
-                    vecino actual = ruta.get(j),
-                           siguiente = ruta.get(j+1);
-                    if (ruta.get(j).peso > ruta.get(j+1).peso) {
-                        ruta.remove(j+1);
-                        ruta.add(j,siguiente);
-                    }
-                }
-            }
-            v1 = ruta.get(0);
-            ruta.remove(0);
-            if(v1.id == fin){
-                exit=true;
-            }
- 
+        Lista.Nodo auxR = EDDProyecto1_fase3.RUTA.first;
+        while(auxR != null){
+            String r = (String) auxR.data;
+            String arr [] = r.split(",");
+            recorrido.añadirVecino(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]),Integer.parseInt(arr[2]));
+            auxR = auxR.next;
         }
-        
-        //actualizar visitado
-        aux = lugares.first;
-        while(aux!=null){
-            Lugar data = (Lugar) aux.data;
-            data.visitado = false;
-            aux = aux.next;
-        }
-        //lista de ruta desde v1 por el anterior
-        while(v1!=null){
-            System.out.println(v1.id);
-            v1=v1.anterior;
-        }
-    }
 
-    
+        String sucursal=(String) this.jComboBox1.getSelectedItem();
+        String destino = this.jTextField1.getText();
+        String mensajero = (String) this.jComboBox2.getSelectedItem();
+        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+        
+        String aux_s [] = sucursal.split(",");
+        String aux_d [] = destino.split(",");
+        String aux_m [] = mensajero.split("|");
+        
+        Mensajero m = EDDProyecto1_fase3.MENSAJEROS.getMensajero(Integer.parseInt(aux_m[0]));
+        
+        String ruta []= recorrido.dijkStra(EDDProyecto1_fase3.LUGARES.getId_lugar(aux_s[0])-1,aux_d[0]);
+        System.out.println("Ruta optima "+ruta[0]+" Tiempo: "+ruta[1]+" min");
+        System.out.println("Mensajero: "+m.nombre+" "+m.apellido);
+        System.out.println("Fecha: "+fecha);
+        
+        String r [] = ruta[0].split(",");
+        Lista graficar_ruta = new Lista();
+        for (String r1 : r) {
+            graficar_ruta.append(r1);
+        }
+        graficar_ruta.recorrido(this.c.user);
+        viajes nuevo_viaje = new viajes(graficar_ruta,Integer.parseInt(ruta[1]));
+        EDDProyecto1_fase3.AgregarViaje(nuevo_viaje);
+        this.c.addPedido(1);
+        EDDProyecto1_fase3.MENSAJEROS.añadirPedido(Integer.parseInt(aux_m[0]), 1);
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     public void info(){
         this.jLabel1.setText("Nombre: "+this.c.getName());
         this.jLabel2.setText("DPI: "+this.c.getDpi()+"    User: "+this.c.getUser());
+        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+        this.jLabel6.setText("Fecha: "+fecha);
         
         Lista lugares = EDDProyecto1_fase3.LUGARES;
         
@@ -191,7 +170,7 @@ public class ModCliente extends javax.swing.JFrame {
         
         while(aux!=null){
             Lugar data = (Lugar) aux.data;
-            this.jComboBox1.addItem(data.getNombre()+" | "+data.getDepartamento());
+            this.jComboBox1.addItem(data.getNombre()+", "+data.getDepartamento());
             aux = aux.next;
         }
         
@@ -208,9 +187,9 @@ public class ModCliente extends javax.swing.JFrame {
         TablaHash mensajeros = EDDProyecto1_fase3.MENSAJEROS;
         Mensajero arr [] = mensajeros.getTabla();
         
-        for (Mensajero arr1 : arr) {
-            if (arr1 != null) {
-                this.jComboBox2.addItem(arr1.nombre + " " + arr1.apellido);
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != null) {
+                this.jComboBox2.addItem(i+"|"+arr[i].nombre + " " + arr[i].apellido);
             }
         }
         
@@ -226,6 +205,7 @@ public class ModCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

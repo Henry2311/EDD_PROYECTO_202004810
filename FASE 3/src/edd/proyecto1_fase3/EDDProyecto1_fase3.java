@@ -7,38 +7,20 @@ public class EDDProyecto1_fase3 {
     static TablaHash MENSAJEROS = new TablaHash();
     static Lista LUGARES = new Lista();
     static String grafo = "";
+    static Lista RUTA = new Lista();
+    static Lista VIAJES = new Lista();
     
     public static void main(String[] args) {
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new login().setVisible(true);
             }
-        });*/
-        
-        Grafo graph = new Grafo(6);
-        graph.addVertax("Guatemala");
-        graph.addVertax("Peten");
-        graph.addVertax("Zacapa");
-        graph.addVertax("Escuintla");
-        graph.addVertax("Alta Verapaz");
-        graph.addVertax("Izabal");
-
-        graph.addEdges(0,1,5);
-        graph.addEdges(0,2,6);
-        graph.addEdges(1,2,6);
-        graph.addEdges(1,3,3);
-        graph.addEdges(1,4,5);
-        graph.addEdges(2,4,2);
-        graph.addEdges(4,3,3);
-        graph.addEdges(3,5,4);
-        graph.addEdges(4,5,1);
-        
-        graph.showEdges();
-        graph.dijkStra(0);
-        
-       
+        });
     }
     
+    public static void AgregarViaje(viajes v){
+        VIAJES.append(v);
+    }
     
     public static void AgregarCliente(Clientes c){
         CLIENTES.append(c);
@@ -54,11 +36,13 @@ public class EDDProyecto1_fase3 {
     
     public static void AgregarRuta(int inicio, vecino v){
         Lista.Nodo aux = LUGARES.first;
+        
         while(aux!=null){
             Lugar data = (Lugar) aux.data;
             if(data.id == inicio){
                 data.Rutas.append(v);
                 grafo+="nodo"+inicio+" -> nodo"+v.id+"[label = \""+v.peso+"\" arrowhead = none];\n";
+                RUTA.append((inicio-1)+","+(v.id-1)+","+v.peso);
                 break;
             }
             aux = aux.next;
