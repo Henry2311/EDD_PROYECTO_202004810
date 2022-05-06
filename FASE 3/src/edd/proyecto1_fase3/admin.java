@@ -14,6 +14,10 @@ import com.google.gson.JsonParser;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -370,7 +374,8 @@ public class admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        JOptionPane.showMessageDialog(this, "Añadir actualizar");
+        new Actualizar(true).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -590,22 +595,37 @@ public class admin extends javax.swing.JFrame {
             case "Tabla Hash":
                 {
                     JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
-                    ImageIcon img = new ImageIcon("TablaHash.png");
-                    this.jLabel2.setIcon(img);
+                    ImageIcon img;
+                    try {
+                        img = new ImageIcon(ImageIO.read(new File("TablaHash.png")));
+                        this.jLabel2.setIcon(img);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ModCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
                 }
             case "Grafo":
                 {
                     JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
-                    ImageIcon img = new ImageIcon("GrafoNoDirigido.png");
-                    this.jLabel2.setIcon(img);
+                    ImageIcon img;
+                    try {
+                        img = new ImageIcon(ImageIO.read(new File("GrafoNoDirigido.png")));
+                        this.jLabel2.setIcon(img);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ModCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
                 }
             case "Matriz Adyacente":
                 {
                     JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
-                    ImageIcon img = new ImageIcon("TablaAdyacencia.png");
-                    this.jLabel2.setIcon(img);
+                    ImageIcon img;
+                    try {
+                        img = new ImageIcon(ImageIO.read(new File("TablaAdyacencia.png")));
+                        this.jLabel2.setIcon(img);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ModCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
                 }
             case "Blockchan":
@@ -617,8 +637,13 @@ public class admin extends javax.swing.JFrame {
                 {
                     EDDProyecto1_fase3.CLIENTES.Tabla_Clientes();
                     JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
-                    ImageIcon img = new ImageIcon("TablaClientes.png");
-                    this.jLabel2.setIcon(img);
+                    ImageIcon img;
+                    try {
+                        img = new ImageIcon(ImageIO.read(new File("TablaClientes.png")));
+                        this.jLabel2.setIcon(img);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ModCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
                 }
             default:
@@ -639,30 +664,19 @@ public class admin extends javax.swing.JFrame {
                     this.jLabel2.setIcon(img);
                     break;
                 }
-            case "Grafo":
+            case "Top clientes":
                 {
+                    EDDProyecto1_fase3.CLIENTES.TopClientes();
                     JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
-                    ImageIcon img = new ImageIcon("GrafoNoDirigido.png");
+                    ImageIcon img = new ImageIcon("TopClientes.png");
                     this.jLabel2.setIcon(img);
                     break;
                 }
-            case "Matriz Adyacente":
+            case "Top Mensajeros":
                 {
+                    EDDProyecto1_fase3.MENSAJEROS.TopMensajeros();
                     JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
-                    ImageIcon img = new ImageIcon("TablaAdyacencia.png");
-                    this.jLabel2.setIcon(img);
-                    break;
-                }
-            case "Blockchan":
-                {
-                    System.out.println("PENDIENTE");
-                    break;
-                }
-            case "Clientes":
-                {
-                    EDDProyecto1_fase3.CLIENTES.Tabla_Clientes();
-                    JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
-                    ImageIcon img = new ImageIcon("TablaClientes.png");
+                    ImageIcon img = new ImageIcon("TopMensajeros.png");
                     this.jLabel2.setIcon(img);
                     break;
                 }

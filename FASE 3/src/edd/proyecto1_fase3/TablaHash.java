@@ -112,7 +112,7 @@ public class TablaHash {
             for (int y = 0; y < aux.length - 1; y++) {
                 Mensajero actual = aux[y], siguiente = aux[y + 1];
                 if(actual!=null && siguiente!=null){
-                    if (actual.pedidos > siguiente.pedidos) {
+                    if (actual.pedidos < siguiente.pedidos) {
                         aux[y] = siguiente;
                         aux[y + 1] = actual;
                     }
@@ -132,25 +132,25 @@ public class TablaHash {
             
             int i = 0;
             int j = 0;
+            Mensajero temp [] = new Mensajero[10];
             while(j < aux.length){
                 if(aux[i]!=null){
-                    pw.println("nodo"+i+"[label = \"Entragas de: "+aux[i].nombre+" "+aux[i].apellido+"\\n Cantidad: "+aux[i].pedidos+"\"]");         
+                    pw.println("nodo"+j+"[label = \"Entragas de: "+aux[i].nombre+" "+aux[i].apellido+"\\n Cantidad: "+aux[i].pedidos+"\"]");         
+                    temp[j]=aux[i];
                     j++;    
                 }
                 i++;
                 if(j==10){break;}
             }
-            i=0;
-            j=0;
             
-            while(j < aux.length){
-                if(aux[i]!=null){
-                    pw.println("nodo"+i+"->nodo"+(i+1));
+            j=0;
+            for (int k = 0; k < temp.length; k++) {
+                if((j+1)<temp.length){
+                    pw.println("nodo"+j+"->nodo"+(j+1));
                     j++;
                 }
-                if(j==8){break;}
-                i++;
             }
+            
             pw.println("label = \"Top 10 Mensajeros con más entregas\";");
             pw.println("}");
 

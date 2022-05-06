@@ -110,6 +110,7 @@ public class login extends javax.swing.JFrame {
             String hash = cliente.password;
             BCrypt.Result contraseña = BCrypt.verifyer().verify(pass.toCharArray(), hash);
             
+            
             if(cliente != null){
                 if(cliente.getUser().equals(user) && contraseña.verified){
                     new ModCliente(cliente).setVisible(true);

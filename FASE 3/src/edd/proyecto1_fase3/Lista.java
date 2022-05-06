@@ -245,17 +245,20 @@ public class Lista {
             
             aux = this.first;
             while(aux!=null){
-                Lugar data = (Lugar) aux.data;
-                Nodo aux2 = data.Rutas.first;
-                
-                vecino data2 = (vecino) aux2.data;
-                datos+="rank = same{nodo"+data.id+" -> nodo"+data.id+data2.id+"};\n";
-               
-                while(aux2.next != null){
-                    data2 = (vecino) aux2.data;
-                    vecino data3 = (vecino) aux2.next.data;
-                    datos+="rank = same{nodo"+data.id+data2.id+" -> nodo"+data.id+data3.id+"};\n";
-                    aux2 = aux2.next;
+                if(aux.data!=null){
+                    Lugar data = (Lugar) aux.data;
+                    Nodo aux2 = data.Rutas.first;
+                    if(aux2!=null){
+                        vecino data2 = (vecino) aux2.data;
+                        datos+="rank = same{nodo"+data.id+" -> nodo"+data.id+data2.id+"};\n";
+
+                        while(aux2.next != null){
+                            data2 = (vecino) aux2.data;
+                            vecino data3 = (vecino) aux2.next.data;
+                            datos+="rank = same{nodo"+data.id+data2.id+" -> nodo"+data.id+data3.id+"};\n";
+                            aux2 = aux2.next;
+                        }
+                    }
                 }
                 aux = aux.next;
             }

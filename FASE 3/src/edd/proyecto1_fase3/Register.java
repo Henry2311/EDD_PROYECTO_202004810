@@ -5,6 +5,7 @@
  */
 package edd.proyecto1_fase3;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import static edd.proyecto1_fase3.admin.datosM;
 import javax.swing.JOptionPane;
 
@@ -15,6 +16,7 @@ public class Register extends javax.swing.JFrame {
     public Register(boolean dir) {
         initComponents();
         this.dir = dir;
+        info();
     }
 
     @SuppressWarnings("unchecked")
@@ -176,12 +178,15 @@ public class Register extends javax.swing.JFrame {
         String telefono = this.jTextField6.getText();
         String direccion = this.jTextField4.getText();
         String user = this.jTextField7.getText();
-        int municipio = (int) this.jComboBox1.getSelectedItem();
+        int municipio = Integer.parseInt(this.jComboBox1.getSelectedItem().toString()) ;
+        
+        String aux_c = pass;
+        String contraseña = BCrypt.withDefaults().hashToString(12, aux_c.toCharArray());
         
         Clientes nuevo = new Clientes(dpi,
                                      municipio,
                                      nombre,
-                                     pass,user,correo,telefono,direccion);
+                                     contraseña,user,correo,telefono,direccion);
         EDDProyecto1_fase3.AgregarCliente(nuevo);
         datosM.append(nuevo);
         JOptionPane.showMessageDialog(this, "Se ha registrado el Cliente");
@@ -197,6 +202,19 @@ public class Register extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+    public void info(){
+        Lista lugares = EDDProyecto1_fase3.LUGARES;
+        
+        Lista.Nodo aux = lugares.first;
+        
+        while(aux!=null){
+            Lugar data = (Lugar) aux.data;
+            this.jComboBox1.addItem(String.valueOf(data.id));
+            aux = aux.next;
+        }
+    
+    }
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
