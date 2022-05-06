@@ -105,6 +105,73 @@ public class TablaHash {
         this.arr[i].pedidos += p;
     }
     
+    public void TopMensajeros(){
+        Mensajero aux [] = this.arr.clone();
+        
+        for (int x = 0; x < aux.length; x++) {
+            for (int y = 0; y < aux.length - 1; y++) {
+                Mensajero actual = aux[y], siguiente = aux[y + 1];
+                if(actual!=null && siguiente!=null){
+                    if (actual.pedidos > siguiente.pedidos) {
+                        aux[y] = siguiente;
+                        aux[y + 1] = actual;
+                    }
+                }
+            }
+        }
+        
+        FileWriter reporte1 = null;
+        PrintWriter pw = null;
+        try{
+            reporte1 = new FileWriter("TopMensajeros.dot");
+            pw = new PrintWriter(reporte1);
+
+            pw.println("digraph G {");
+            pw.println("node[shape=\"box\"]");
+
+            
+            int i = 0;
+            int j = 0;
+            while(j < aux.length){
+                if(aux[i]!=null){
+                    pw.println("nodo"+i+"[label = \"Entragas de: "+aux[i].nombre+" "+aux[i].apellido+"\\n Cantidad: "+aux[i].pedidos+"\"]");         
+                    j++;    
+                }
+                i++;
+                if(j==10){break;}
+            }
+            i=0;
+            j=0;
+            
+            while(j < aux.length){
+                if(aux[i]!=null){
+                    pw.println("nodo"+i+"->nodo"+(i+1));
+                    j++;
+                }
+                if(j==8){break;}
+                i++;
+            }
+            pw.println("label = \"Top 10 Mensajeros con más entregas\";");
+            pw.println("}");
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                try{       
+                    if(null != reporte1){
+                        reporte1.close();
+                        ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","TopMensajeros.png","TopMensajeros.dot");
+                        buil.redirectErrorStream(true);
+                        buil.start();           
+                    }
+            }catch(Exception e2){
+            e2.printStackTrace();
+            }
+            }
+        
+        
+    }
+    
     public void graph(){
         
         FileWriter reporte = null;
@@ -118,12 +185,12 @@ public class TablaHash {
             pw.println("label = \"Tabla Hash\"");
             pw.println("a0 [label=< \n <TABLE>");
             String datos = "<TR> "
-                         + "<TD>indice</TD><TD>Valor</TD>"
+                         + "<TD>indice</TD><TD>DPI</TD><TD>DPI</TD>"
                          + "</TR>";
             for (int i = 0; i < this.M; i++) {
                 if(this.arr[i] != null) {
                     datos += "<TR> "
-                          + "<TD>"+i+"</TD><TD>"+this.arr[i]+"</TD>"
+                          + "<TD>"+i+"</TD><TD>"+this.arr[i].dpi+"</TD><TD>"+this.arr[i].nombre+" "+this.arr[i].apellido+"</TD>"
                           + "</TR>";
                 }
             }

@@ -1,6 +1,7 @@
 
 package edd.proyecto1_fase3;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import javax.swing.JOptionPane;
 
 
@@ -32,7 +33,7 @@ public class login extends javax.swing.JFrame {
 
         jLabel2.setText("User");
 
-        jLabel3.setText("User");
+        jLabel3.setText("Contraseña");
 
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -105,8 +106,12 @@ public class login extends javax.swing.JFrame {
             this.dispose();
         }else{
             Clientes cliente = EDDProyecto1_fase3.CLIENTES.search(user);
+            
+            String hash = cliente.password;
+            BCrypt.Result contraseña = BCrypt.verifyer().verify(pass.toCharArray(), hash);
+            
             if(cliente != null){
-                if(cliente.getUser().equals(user) && cliente.getPassword().equals(pass)){
+                if(cliente.getUser().equals(user) && contraseña.verified){
                     new ModCliente(cliente).setVisible(true);
                     this.dispose();
                 }

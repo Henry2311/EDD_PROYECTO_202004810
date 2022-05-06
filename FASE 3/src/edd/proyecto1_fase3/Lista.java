@@ -151,6 +151,58 @@ public class Lista {
     }
     
     
+    public void Tabla_Clientes(){
+        
+        FileWriter reporte = null;
+        PrintWriter pw = null;
+        try{
+            reporte = new FileWriter("TablaClientes.dot");
+            pw = new PrintWriter(reporte);
+
+            String datos = "";
+            
+            pw.println("digraph G {");
+            pw.println("node [shape=\"box\"]");
+            pw.println("label = \"Tabla Clientes\"");
+            pw.println("a0 [label=< \n <TABLE>");
+            datos += "<TR> "
+                         + "<TD>DPI</TD><TD>NOMBRE</TD><TD>USER</TD><TD>DIRECCION</TD>"
+                         + "</TR>";
+            
+            Nodo aux = this.first;
+            while(aux!=null){
+                Clientes data = (Clientes) aux.data;
+                datos += "<TR> "
+                          + "<TD>"+data.getDpi()+"</TD><TD>"+data.getName()+"</TD><TD>"+data.getUser()+"</TD><TD>"+data.getDireccion()+"</TD>"
+                          + "</TR>";
+                aux = aux.next;
+            }
+           
+            datos+="</TABLE>>];";
+            
+            pw.println(datos);
+            pw.println("}");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{       
+                if(null != reporte){
+                    reporte.close();
+                    ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","TablaClientes.png","TablaClientes.dot");
+                    buil.redirectErrorStream(true);
+                    buil.start();           
+                }
+            }catch(Exception e2){
+            e2.printStackTrace();
+            }
+        }
+    
+    
+    
+    }
+    
+    
     public void graficar(){
     
         FileWriter reporte = null;
@@ -225,7 +277,6 @@ public class Lista {
             e2.printStackTrace();
             }
         }
-        System.out.println("Archivo creado");
     
     }
     
@@ -270,7 +321,6 @@ public class Lista {
             e2.printStackTrace();
             }
         }
-        System.out.println("Archivo creado");
     }
     
     public String getMunicipio(int id){
@@ -332,5 +382,162 @@ public class Lista {
         }
     }
     
+    public void TopViajes(){
+        Nodo aux = this.first;
+        
+        if(aux!=null){
+            Lista.Nodo actual = aux;
+            boolean sw;
+            Object temp;
+            do{
+                actual = this.first;
+                Lista.Nodo siguiente = actual.next;
+                sw=false;
+                while(actual.next!=null){
+                    viajes x = (viajes) actual.data;
+                    viajes y = (viajes) siguiente.data;
+                    if (x.getTiempo()<y.getTiempo()) {
+                        sw=true;
+                        temp= actual.data;
+                        actual.data = siguiente.data;
+                        siguiente.data = temp;
+                        actual = actual.next;
+                        siguiente = siguiente.next;
+                    }else{
+                        actual = actual.next;
+                        siguiente = siguiente.next;
+                    }
+                }
+            }while(sw);
+            
+            FileWriter reporte1 = null;
+            PrintWriter pw = null;
+            try{
+                reporte1 = new FileWriter("TopViajes.dot");
+                pw = new PrintWriter(reporte1);
+
+                pw.println("digraph G {");
+                pw.println("node[shape=\"box\"]");
+
+                Nodo aux2 = this.first;
+                int i = 0;
+                while(aux2 != null){
+                    viajes a = (viajes) aux2.data;
+                    pw.println("nodo"+i+"[label = \"Pedido de: "+a.nombre+"\\n Desde: "+a.ruta.first.data.toString()+"\\n Hasta: "+a.ruta.last.data.toString()+"\\n Tiempo: "+a.tiempo+" min\"]");         
+                    i++;
+                    if(i==10){break;}
+                    aux2 = aux2.next;
+                }
+                i=0;
+                aux2 = this.first;
+                while(aux2 != null){
+                    if(aux2.next!=null){
+                        pw.println("nodo"+i+"->nodo"+(i+1));
+                        if(i==8){break;}
+                        i++;
+                    }       
+                    aux2 = aux2.next;
+                }
+                pw.println("label = \"Top 10 Viajes con más distancia\";");
+                pw.println("}");
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                try{       
+                    if(null != reporte1){
+                        reporte1.close();
+                        ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","TopViajes.png","TopViajes.dot");
+                        buil.redirectErrorStream(true);
+                        buil.start();           
+                    }
+            }catch(Exception e2){
+            e2.printStackTrace();
+            }
+            }
+            
+            
+            
+        }
+    }
+    
+    public void TopClientes(){
+        Nodo aux = this.first;
+        
+        if(aux!=null){
+            Lista.Nodo actual = aux;
+            boolean sw;
+            Object temp;
+            do{
+                actual = this.first;
+                Lista.Nodo siguiente = actual.next;
+                sw=false;
+                while(actual.next!=null){
+                    Clientes x = (Clientes) actual.data;
+                    Clientes y = (Clientes) siguiente.data;
+                    if (x.pedidos<y.pedidos) {
+                        sw=true;
+                        temp= actual.data;
+                        actual.data = siguiente.data;
+                        siguiente.data = temp;
+                        actual = actual.next;
+                        siguiente = siguiente.next;
+                    }else{
+                        actual = actual.next;
+                        siguiente = siguiente.next;
+                    }
+                }
+            }while(sw);
+            
+            FileWriter reporte1 = null;
+            PrintWriter pw = null;
+            try{
+                reporte1 = new FileWriter("TopClientes.dot");
+                pw = new PrintWriter(reporte1);
+
+                pw.println("digraph G {");
+                pw.println("node[shape=\"box\"]");
+
+                Nodo aux2 = this.first;
+                int i = 0;
+                while(aux2 != null){
+                    Clientes a = (Clientes) aux2.data;
+                    pw.println("nodo"+i+"[label = \"Nombre: "+a.getName()+"\\n Cantidad de Pedidos: "+a.pedidos+"\"]");         
+                    i++;
+                    if(i==10){break;}
+                    aux2 = aux2.next;
+                }
+                i=0;
+                aux2 = this.first;
+                while(aux2 != null){
+                    if(aux2.next!=null){
+                        pw.println("nodo"+i+"->nodo"+(i+1));
+                        if(i==8){break;}
+                        i++;
+                    }       
+                    aux2 = aux2.next;
+                }
+                pw.println("label = \"Top 10 Clientes con mas pedidos\";");
+                pw.println("}");
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                try{       
+                    if(null != reporte1){
+                        reporte1.close();
+                        ProcessBuilder buil = new ProcessBuilder("dot","-Tpng","-o","TopClientes.png","TopClientes.dot");
+                        buil.redirectErrorStream(true);
+                        buil.start();           
+                    }
+            }catch(Exception e2){
+            e2.printStackTrace();
+            }
+            }
+            
+            
+            
+        }
+    }
     
 }

@@ -5,15 +5,15 @@
  */
 package edd.proyecto1_fase3;
 
+
+
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -53,9 +53,12 @@ public class admin extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,7 +169,7 @@ public class admin extends javax.swing.JFrame {
                     .addComponent(jButton3)
                     .addComponent(jButton1)
                     .addComponent(jButton4))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Carga de Usuarios", jPanel1);
@@ -265,41 +268,49 @@ public class admin extends javax.swing.JFrame {
                     .addComponent(jButton9)
                     .addComponent(jButton10)
                     .addComponent(jButton11))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Carga de Mensajeros", jPanel2);
 
-        jLabel3.setText(".");
+        jLabel2.setText(".");
+        jScrollPane3.setViewportView(jLabel2);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 971, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 977, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jButton7.setText("Buscar Cliente");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel5.setText("Estructuras: ");
+
+        jComboBox1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Tabla Hash", "Grafo", "Matriz Adyacente", "Blockchain", "Clientes" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Listar Clientes");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel6.setText("Reportes");
+
+        jComboBox2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "Top viajes", "Top clientes", "Top Mensajeros" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                jComboBox2ActionPerformed(evt);
             }
         });
 
@@ -308,25 +319,33 @@ public class admin extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton7)
+                        .addGap(17, 17, 17)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(jLabel6)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton8))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(44, 44, 44)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel5)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reportes", jPanel3);
@@ -378,10 +397,14 @@ public class admin extends javax.swing.JFrame {
                 JsonObject c = clientes.get(i).getAsJsonObject();
                 String n = c.get("dpi").getAsString();
                 Long Ln = new Long(Long.parseLong(n));
+                
+                String aux_c = c.get("contrasenia").getAsString();
+                String contraseña = BCrypt.withDefaults().hashToString(12, aux_c.toCharArray());
+                
                 Clientes nuevo = new Clientes(Ln,
                                               c.get("id_municipio").getAsInt(),
                                               c.get("nombre_completo").getAsString(),
-                                              c.get("contrasenia").getAsString(),
+                                              contraseña,
                                               c.get("nombre_usuario").getAsString(),
                                               c.get("correo").getAsString(),
                                               c.get("telefono").getAsString(),
@@ -413,14 +436,6 @@ public class admin extends javax.swing.JFrame {
         new Register(true).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
-    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         
@@ -470,6 +485,7 @@ public class admin extends javax.swing.JFrame {
                 ex.printStackTrace();
             }
         }
+        EDDProyecto1_fase3.MENSAJEROS.graph();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -564,8 +580,96 @@ public class admin extends javax.swing.JFrame {
         }
         EDDProyecto1_fase3.LUGARES.graficar();
         EDDProyecto1_fase3.LUGARES.grafo_nodirigido();
-        EDDProyecto1_fase3.mostrar_lugar();
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        
+        String option = (String) this.jComboBox1.getSelectedItem();
+        
+        switch (option) {
+            case "Tabla Hash":
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
+                    ImageIcon img = new ImageIcon("TablaHash.png");
+                    this.jLabel2.setIcon(img);
+                    break;
+                }
+            case "Grafo":
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
+                    ImageIcon img = new ImageIcon("GrafoNoDirigido.png");
+                    this.jLabel2.setIcon(img);
+                    break;
+                }
+            case "Matriz Adyacente":
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
+                    ImageIcon img = new ImageIcon("TablaAdyacencia.png");
+                    this.jLabel2.setIcon(img);
+                    break;
+                }
+            case "Blockchan":
+                {
+                    System.out.println("PENDIENTE");
+                    break;
+                }
+            case "Clientes":
+                {
+                    EDDProyecto1_fase3.CLIENTES.Tabla_Clientes();
+                    JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
+                    ImageIcon img = new ImageIcon("TablaClientes.png");
+                    this.jLabel2.setIcon(img);
+                    break;
+                }
+            default:
+                break;
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+
+        String option = (String) this.jComboBox2.getSelectedItem();
+        
+        switch (option) {
+            case "Top viajes":
+                {
+                    EDDProyecto1_fase3.VIAJES.TopViajes();
+                    JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
+                    ImageIcon img = new ImageIcon("TopViajes.png");
+                    this.jLabel2.setIcon(img);
+                    break;
+                }
+            case "Grafo":
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
+                    ImageIcon img = new ImageIcon("GrafoNoDirigido.png");
+                    this.jLabel2.setIcon(img);
+                    break;
+                }
+            case "Matriz Adyacente":
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
+                    ImageIcon img = new ImageIcon("TablaAdyacencia.png");
+                    this.jLabel2.setIcon(img);
+                    break;
+                }
+            case "Blockchan":
+                {
+                    System.out.println("PENDIENTE");
+                    break;
+                }
+            case "Clientes":
+                {
+                    EDDProyecto1_fase3.CLIENTES.Tabla_Clientes();
+                    JOptionPane.showMessageDialog(this, "Se ha creado la imagen correctamente");
+                    ImageIcon img = new ImageIcon("TablaClientes.png");
+                    this.jLabel2.setIcon(img);
+                    break;
+                }
+            default:
+                break;
+        }
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     public void actualizarTabla(){
         if(datosM.size()!=0){
@@ -632,18 +736,21 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;

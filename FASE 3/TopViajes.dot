@@ -1,0 +1,23 @@
+digraph G {
+node[shape="box"]
+nodo0[label = "Pedido de: William Hodge\n Desde: edd.proyecto1_fase3.Lista$Nodo@78f02632\n Hasta: edd.proyecto1_fase3.Lista$Nodo@58b89647\n Tiempo: 9.0min"]
+nodo1[label = "Pedido de: William Hodge\n Desde: edd.proyecto1_fase3.Lista$Nodo@5b912dbf\n Hasta: edd.proyecto1_fase3.Lista$Nodo@4a9b5f1a\n Tiempo: 8.0min"]
+nodo2[label = "Pedido de: William Hodge\n Desde: edd.proyecto1_fase3.Lista$Nodo@33a321cd\n Hasta: edd.proyecto1_fase3.Lista$Nodo@2f359350\n Tiempo: 8.0min"]
+nodo3[label = "Pedido de: William Hodge\n Desde: edd.proyecto1_fase3.Lista$Nodo@7d1bbfdc\n Hasta: edd.proyecto1_fase3.Lista$Nodo@6de84cea\n Tiempo: 8.0min"]
+nodo4[label = "Pedido de: Henry Mendoza\n Desde: edd.proyecto1_fase3.Lista$Nodo@47efa5d3\n Hasta: edd.proyecto1_fase3.Lista$Nodo@44c3016d\n Tiempo: 6.0min"]
+nodo5[label = "Pedido de: Henry Mendoza\n Desde: edd.proyecto1_fase3.Lista$Nodo@6406b376\n Hasta: edd.proyecto1_fase3.Lista$Nodo@4ba62c00\n Tiempo: 6.0min"]
+nodo6[label = "Pedido de: William Hodge\n Desde: edd.proyecto1_fase3.Lista$Nodo@71ddd99a\n Hasta: edd.proyecto1_fase3.Lista$Nodo@2d4966a5\n Tiempo: 6.0min"]
+nodo7[label = "Pedido de: Henry Mendoza\n Desde: edd.proyecto1_fase3.Lista$Nodo@7c85ed79\n Hasta: edd.proyecto1_fase3.Lista$Nodo@63918c5\n Tiempo: 5.0min"]
+nodo8[label = "Pedido de: Henry Mendoza\n Desde: edd.proyecto1_fase3.Lista$Nodo@19371091\n Hasta: edd.proyecto1_fase3.Lista$Nodo@7fad315c\n Tiempo: 5.0min"]
+nodo9[label = "Pedido de: William Hodge\n Desde: edd.proyecto1_fase3.Lista$Nodo@2c90f5f5\n Hasta: edd.proyecto1_fase3.Lista$Nodo@62212f92\n Tiempo: 5.0min"]
+nodo0->nodo1
+nodo1->nodo2
+nodo2->nodo3
+nodo3->nodo4
+nodo4->nodo5
+nodo5->nodo6
+nodo6->nodo7
+nodo7->nodo8
+nodo8->nodo9
+label = "Top 10 Viajes con más distancia";
+}

@@ -4,11 +4,13 @@ package edd.proyecto1_fase3;
 public class viajes {
     
     Lista ruta;
-    int tiempo;
-
-    public viajes(Lista ruta, int tiempo) {
+    double tiempo;
+    String nombre;
+    
+    public viajes(Lista ruta, double tiempo, String nombre) {
         this.ruta = ruta;
         this.tiempo = tiempo;
+        this.nombre = nombre;
     }
 
     public Lista getRuta() {
@@ -19,7 +21,7 @@ public class viajes {
         this.ruta = ruta;
     }
 
-    public int getTiempo() {
+    public double getTiempo() {
         return tiempo;
     }
 
