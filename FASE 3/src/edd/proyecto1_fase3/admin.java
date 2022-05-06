@@ -31,6 +31,7 @@ public class admin extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         actualizarTabla();
+        actualizarTablaM();
     }
 
     @SuppressWarnings("unchecked")

@@ -135,7 +135,7 @@ public class TablaHash {
             Mensajero temp [] = new Mensajero[10];
             while(j < aux.length){
                 if(aux[i]!=null){
-                    pw.println("nodo"+j+"[label = \"Entragas de: "+aux[i].nombre+" "+aux[i].apellido+"\\n Cantidad: "+aux[i].pedidos+"\"]");         
+                    pw.println("nodo"+j+"[label = \"Entregas de: "+aux[i].nombre+" "+aux[i].apellido+"\\n Cantidad: "+aux[i].pedidos+"\"]");         
                     temp[j]=aux[i];
                     j++;    
                 }
